@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/src/theme/colors.dart';
 import 'package:shopper/src/theme/fonts.dart';
-import 'package:shopper/src/widgets/Button/Button.dart';
-import 'package:shopper/src/widgets/TextInput/TextInput.dart';
+import 'package:shopper/src/widgets/Button/button.dart';
+import 'package:shopper/src/widgets/text_input/text_input.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -28,9 +28,9 @@ class _SignUpState extends State<SignUp> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Spacer(flex: 2,),
-            Padding(padding: EdgeInsets.only(bottom: 44.0),
+          children: <Widget>[
+            const Spacer(flex: 2,),
+            const Padding(padding: EdgeInsets.only(bottom: 44.0),
               child: Text('Sign in Shopper',
                 style: TextStyle(
                     fontSize: 20.0,
@@ -46,8 +46,9 @@ class _SignUpState extends State<SignUp> {
               title: 'Sign Up',
               color: CustomColors.primary,
               textColor: CustomColors.white,
+              onPress: () { },
             ),
-            Spacer(flex: 4),
+            const Spacer(flex: 4),
           ],
         ),
       ),
