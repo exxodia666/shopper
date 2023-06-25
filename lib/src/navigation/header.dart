@@ -3,12 +3,13 @@ import 'package:shopper/src/navigation/routes.dart';
 import 'package:shopper/src/theme/colors.dart';
 import 'package:shopper/src/theme/typography.dart';
 
-class CustomHeader extends StatelessWidget with PreferredSizeWidget {
+class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   bool backBtn = true;
   final String? title;
   final List<Widget>? actions;
 
-  CustomHeader({Key? key, this.backBtn = true, this.title, this.actions}) : super(key: key);
+  CustomHeader({Key? key, this.backBtn = true, this.title, this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

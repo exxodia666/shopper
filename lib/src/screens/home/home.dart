@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
             Positioned(
                 top: 10,
                 width: MediaQuery.of(context).size.width * 0.9,
-                child: const SearchBar()),
+                child: const CustomSearchBar()),
           ],
         ),
         // ),

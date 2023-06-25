@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../theme/colors.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class CustomSearchBar extends StatelessWidget {
+  const CustomSearchBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
