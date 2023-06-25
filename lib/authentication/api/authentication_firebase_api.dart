@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:shopper/authentication/api/authentication_api.dart';
-import 'package:shopper/authentication/api/errors.dart';
-import 'package:shopper/authentication/models/user.dart';
+import 'package:shopper/authentication/authentication.dart';
 
 class AuthenticationFirebaseApi extends AuthenticationApi {
-
   final firebase_auth.FirebaseAuth _firebaseAuth =
       firebase_auth.FirebaseAuth.instance;
 
@@ -52,11 +49,12 @@ class AuthenticationFirebaseApi extends AuthenticationApi {
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
-    } catch (_) {
+    } catch (err) {
       throw const LogInWithEmailAndPasswordFailure();
     }
   }
 
+  @override
   Future<void> logOut() async {
     try {
       await _firebaseAuth.signOut();

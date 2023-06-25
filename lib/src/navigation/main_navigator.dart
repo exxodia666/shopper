@@ -8,6 +8,7 @@ import 'package:shopper/src/navigation/stacks/auth_stack.dart';
 import 'package:shopper/src/navigation/stacks/favorite_stack.dart';
 import 'package:shopper/src/navigation/stacks/home_stack.dart';
 import 'package:shopper/src/navigation/stacks/order_stack.dart';
+import 'package:shopper/src/navigation/stacks/profile_stack.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -31,12 +32,12 @@ class _MainNavigatorState extends State<MainNavigator> {
     routes: <RouteBase>[
       /// The first screen to display in the bottom navigation bar.
       homeStack,
-
       /// Displayed when the second item in the the bottom navigation bar is selected.
       favoritesStack,
-
       /// The third screen to display in the bottom nwavigation bar.
       orderStack,
+      /// The third screen to display in the bottom nwavigation bar.
+      profileStack,
     ],
   );
 

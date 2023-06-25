@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shopper/authentication/models/user.dart';
-import 'package:shopper/authentication/repository/authentication_repository.dart';
+import 'package:shopper/authentication/authentication.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';

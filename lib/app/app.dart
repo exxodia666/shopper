@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
-import 'package:shopper/authentication/repository/authentication_repository.dart';
+import 'package:shopper/authentication/authentication.dart';
 import 'package:shopper/src/navigation/main_navigator.dart';
 
 class MyApp extends StatelessWidget {

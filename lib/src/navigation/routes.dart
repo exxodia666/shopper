@@ -11,6 +11,8 @@ class Routes {
  // Cart stack
  static const cart = '/cart';
  static const order = 'order';
+ // Profile stack
+ static const profile = '/profile';
  // Auth stack
  static const signIn = '/signIn';
  static const signUp = 'signUp';

@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
-import 'package:shopper/authentication/api/errors.dart';
-import 'package:shopper/authentication/form/form.dart';
-import 'package:shopper/authentication/repository/authentication_repository.dart';
+import 'package:shopper/authentication/authentication.dart';
 
 part 'sign_in_state.dart';
 
@@ -42,6 +41,9 @@ class SignInCubit extends Cubit<SignInState> {
       );
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithEmailAndPasswordFailure catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       emit(
         state.copyWith(
           errorMessage: e.message,
