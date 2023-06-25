@@ -1,11 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/src/navigation/routes.dart';
 import 'package:shopper/src/navigation/stacks/auth_stack.dart';
 import 'package:shopper/src/navigation/stacks/favorite_stack.dart';
 import 'package:shopper/src/navigation/stacks/home_stack.dart';
 import 'package:shopper/src/navigation/stacks/order_stack.dart';
+import 'package:shopper/src/navigation/stacks/profile_stack.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -33,6 +36,8 @@ class _MainNavigatorState extends State<MainNavigator> {
       favoritesStack,
       /// The third screen to display in the bottom nwavigation bar.
       orderStack,
+      /// The third screen to display in the bottom nwavigation bar.
+      profileStack,
     ],
   );
 
@@ -42,20 +47,18 @@ class _MainNavigatorState extends State<MainNavigator> {
       debugLogDiagnostics: true,
       routes: <RouteBase>[
         authStack,
-      ]
-  );
+      ]);
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print(Routes.home);
-    }
+    var authStatus = context.select((AppBloc bloc) => bloc.state.status);
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerConfig: !auth ? _authRouter : _router,
+      routerConfig:
+          authStatus == AppStatus.unauthenticated ? _authRouter : _router,
       // routes: {
       //   '/': (context) => SignIn(),
       //   '/signUp': (context) => SignUp(),

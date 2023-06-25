@@ -31,6 +31,11 @@ class _BottomBarState extends State<BottomBar> {
         route: Routes.cart,
         icon: Icons.shopping_cart_rounded,
       ),
+      BottomBarButton(
+        selectedRoute: selectedRoute,
+        route: Routes.profile,
+        icon: Icons.person_4_outlined,
+      ),
     ];
   }
 
