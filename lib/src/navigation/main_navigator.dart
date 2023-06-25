@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/src/navigation/routes.dart';
 import 'package:shopper/src/navigation/stacks/auth_stack.dart';
 import 'package:shopper/src/navigation/stacks/favorite_stack.dart';
@@ -29,8 +31,10 @@ class _MainNavigatorState extends State<MainNavigator> {
     routes: <RouteBase>[
       /// The first screen to display in the bottom navigation bar.
       homeStack,
+
       /// Displayed when the second item in the the bottom navigation bar is selected.
       favoritesStack,
+
       /// The third screen to display in the bottom nwavigation bar.
       orderStack,
     ],
@@ -42,20 +46,18 @@ class _MainNavigatorState extends State<MainNavigator> {
       debugLogDiagnostics: true,
       routes: <RouteBase>[
         authStack,
-      ]
-  );
+      ]);
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print(Routes.home);
-    }
+    var authStatus = context.select((AppBloc bloc) => bloc.state.status);
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerConfig: !auth ? _authRouter : _router,
+      routerConfig:
+          authStatus == AppStatus.unauthenticated ? _authRouter : _router,
       // routes: {
       //   '/': (context) => SignIn(),
       //   '/signUp': (context) => SignUp(),
