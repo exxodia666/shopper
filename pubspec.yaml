@@ -40,6 +40,7 @@ dependencies:
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
   formz: ^0.6.0
+  cloud_firestore: ^4.14.0
 
 dev_dependencies:
   flutter_test:
@@ -60,15 +61,15 @@ flutter:
   fonts:
     - family: SpartanMedium
       fonts:
-        - asset: lib/src/assets/fonts/LeagueSpartan-Medium.ttf
+        - asset: lib/assets/fonts/LeagueSpartan-Medium.ttf
           weight: 400
     - family: SpartanRegular
       fonts:
-        - asset: lib/src/assets/fonts/LeagueSpartan-Regular.ttf
+        - asset: lib/assets/fonts/LeagueSpartan-Regular.ttf
           weight: 500
     - family: SpartanSemiBold
       fonts:
-        - asset: lib/src/assets/fonts/LeagueSpartan-SemiBold.ttf
+        - asset: lib/assets/fonts/LeagueSpartan-SemiBold.ttf
           weight: 600
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
