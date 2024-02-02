@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopper/authentication/authentication.dart';
+import 'package:shopper/cubit/auth/cubit.dart';
+import 'package:shopper/repository/authentication_repository.dart';
+import 'package:shopper/widgets/widgets.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);

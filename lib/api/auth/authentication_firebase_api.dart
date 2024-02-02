@@ -1,16 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:shopper/authentication/authentication.dart';
+import 'package:shopper/models/user.dart';
+import 'authentication_api.dart';
+import 'errors.dart';
 
 class AuthenticationFirebaseApi extends AuthenticationApi {
   final firebase_auth.FirebaseAuth _firebaseAuth =
       firebase_auth.FirebaseAuth.instance;
-
   @override
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
-      // TODO implement user caching
-      // _cache.write(key: userCacheKey, value: user);
       return user;
     });
   }
@@ -18,8 +17,6 @@ class AuthenticationFirebaseApi extends AuthenticationApi {
   @override
   User get currentUser {
     return User.empty;
-    // TODO implement user caching
-    // return _cache.read<User>(key: userCacheKey) ?? User.empty;
   }
 
   @override

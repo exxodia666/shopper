@@ -1,4 +1,4 @@
-import 'package:shopper/authentication/authentication.dart';
+import '../../models/user.dart';
 
 abstract class AuthenticationApi {
   AuthenticationApi();

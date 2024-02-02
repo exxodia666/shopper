@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:shopper/authentication/authentication.dart';
-import 'package:shopper/src/theme/colors.dart';
-import 'package:shopper/src/theme/fonts.dart';
-import 'package:shopper/src/widgets/text_input/text_input.dart';
-import '../../src/navigation/routes.dart';
-import '../../src/widgets/Button/button.dart';
+import 'package:shopper/theme/colors.dart';
+import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/navigation/routes.dart';
+import 'package:shopper/widgets/widgets.dart';
+import 'package:shopper/cubit/auth/cubit.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({super.key});

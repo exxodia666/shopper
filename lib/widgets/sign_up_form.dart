@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:shopper/authentication/authentication.dart';
-import 'package:shopper/src/theme/colors.dart';
-import 'package:shopper/src/theme/fonts.dart';
-import 'package:shopper/src/widgets/button/button.dart';
-import 'package:shopper/src/widgets/text_input/text_input.dart';
+import 'package:shopper/theme/colors.dart';
+import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/widgets/widgets.dart';
+import 'package:shopper/cubit/auth/sign_up/sign_up_cubit.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
