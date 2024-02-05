@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class Favorites extends StatefulWidget {
@@ -11,11 +11,15 @@ class Favorites extends StatefulWidget {
 
 class _FavoritesState extends State<Favorites> {
   var products = List.generate(
-      1000,
-      (index) => Product(
-          image: 'https://picsum.photos/250?image=2',
-          title: 'Macbook Air',
-          price: 'Rs. 40,000'));
+    1000,
+    (index) => const Product(
+        id: 'fasfasfasfasfas',
+        rating: 40,
+        image: 'https://picsum.photos/250?image=2',
+        description: 'fasfasfasfasfas',
+        title: 'Macbook Air',
+        price: 40000),
+  );
 
   @override
   Widget build(BuildContext context) {

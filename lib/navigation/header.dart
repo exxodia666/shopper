@@ -3,6 +3,7 @@ import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/typography.dart';
 
+// ignore: must_be_immutable
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   bool backBtn = true;
   final String? title;

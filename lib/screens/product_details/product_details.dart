@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
 import 'package:shopper/widgets/widgets.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 
 class ProductDetails extends StatefulWidget {
   const ProductDetails({Key? key}) : super(key: key);
@@ -15,14 +15,14 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
-    var item = Product(
+    var item = const Product(
+        id: 'dadasdasdasdasdasdasd',
         image: 'https://picsum.photos/250?image=5',
         title: 'Charger',
-        price: 'Rs. 500',
+        price: 500,
         rating: 4,
         description:
-            'Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.'
-    );
+            'Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.');
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -57,8 +57,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: 360,
                     fit: BoxFit.fitHeight,
-                  )
-              ),
+                  )),
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.9,
@@ -88,7 +87,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Container(
                     margin: const EdgeInsets.only(bottom: 8),
                     child: Text(
-                      item.price,
+                      item.price.toString(),
                       style: const TextStyle(
                           // height: 1.5,
                           fontWeight: FontWeight.w400,
@@ -100,7 +99,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Container(
                     margin: const EdgeInsets.only(bottom: 18),
                     child: Text(
-                      item.description ?? 'null',
+                      item.description,
                       style: const TextStyle(
                           height: 1.5,
                           fontWeight: FontWeight.w400,

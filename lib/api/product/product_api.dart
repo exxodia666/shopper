@@ -1,4 +1,4 @@
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 
 abstract class ProductApi {
   ProductApi();

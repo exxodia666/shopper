@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
 import 'package:shopper/widgets/widgets.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 
 class CategoryProducts extends StatefulWidget {
   const CategoryProducts({
@@ -14,18 +14,27 @@ class CategoryProducts extends StatefulWidget {
 
 class _CategoryProductsState extends State<CategoryProducts> {
   var products = [
-    Product(
+    const Product(
+        id: 'fasfasfasfasfas',
+        rating: 40,
         image: 'https://picsum.photos/250?image=2',
+        description: 'fasfasfasfasfas',
         title: 'Macbook Air',
-        price: 'Rs. 40,000'),
-    Product(
+        price: 40000),
+    const Product(
+        id: 'fasfasfasfasfas',
+        rating: 40,
         image: 'https://picsum.photos/250?image=5',
-        title: 'Charger',
-        price: 'Rs. 500'),
-    Product(
+        description: 'fasfasfasfasfas',
+        title: 'Macbook Air',
+        price: 40000),
+    const Product(
+        id: 'fasfasfasfasfas',
+        rating: 40,
         image: 'https://picsum.photos/250?image=7',
-        title: 'Car',
-        price: 'Rs. 140,000'),
+        description: 'fasfasfasfasfas',
+        title: 'Macbook Air',
+        price: 40000),
   ];
 
   @override

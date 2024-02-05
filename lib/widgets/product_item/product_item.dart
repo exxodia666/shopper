@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
 
@@ -17,10 +17,10 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
-
     if (kDebugMode) {
       // print(widget.item.image);
-      print('TestWidget Number(${widget.item.rating}): ${ModalRoute.of(context)?.isCurrent}');
+      print(
+          'TestWidget Number(${widget.item.rating}): ${ModalRoute.of(context)?.isCurrent}');
     }
     return InkWell(
       onTap: () {
@@ -50,8 +50,7 @@ class _ProductItemState extends State<ProductItem> {
                   width: 400,
                   height: 300,
                   fit: BoxFit.fitWidth,
-                )
-            ),
+                )),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
@@ -72,7 +71,7 @@ class _ProductItemState extends State<ProductItem> {
                         ),
                       ),
                       Text(
-                        widget.item.price,
+                        widget.item.price.toString(),
                         style: const TextStyle(
                             color: CustomColors.placeholder,
                             fontSize: 18,

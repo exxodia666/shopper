@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:shopper/api/auth/authentication_api.dart';
-import 'package:shopper/models/user.dart';
+import 'package:shopper/models/user/user.dart';
 
 class AuthenticationRepository {
   AuthenticationRepository({

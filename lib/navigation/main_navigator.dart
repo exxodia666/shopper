@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,10 +31,13 @@ class _MainNavigatorState extends State<MainNavigator> {
     routes: <RouteBase>[
       /// The first screen to display in the bottom navigation bar.
       homeStack,
+
       /// Displayed when the second item in the the bottom navigation bar is selected.
       favoritesStack,
+
       /// The third screen to display in the bottom nwavigation bar.
       orderStack,
+
       /// The third screen to display in the bottom nwavigation bar.
       profileStack,
     ],

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shopper/bloc/product_list/product_list_bloc.dart';
+// import 'package:shopper/cubit/product/product_cubit.dart';
 import 'package:shopper/navigation/header.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
+import 'package:shopper/repository/product_repository.dart';
 import 'package:shopper/screens/Categories/categories.dart';
 import 'package:shopper/screens/Home/home.dart';
 import 'package:shopper/theme/colors.dart';
@@ -24,7 +28,12 @@ GoRoute homeStack = GoRoute(
           title: 'Apparel',
           backBtn: false,
         ),
-        child: const Home());
+        child: BlocProvider(
+          create: (context) =>
+              ProductListBloc(context.read<ProductRepository>())
+                ..add(ProductListFetch()),
+          child: const Home(),
+        ));
   },
   routes: [
     ShellRoute(

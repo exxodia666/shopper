@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
 
@@ -35,8 +35,7 @@ class _GridProductItemState extends State<GridProductItem> {
                 fit: BoxFit.fitWidth,
               )),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -54,7 +53,7 @@ class _GridProductItemState extends State<GridProductItem> {
                       ),
                     ),
                     Text(
-                      widget.item.price,
+                      widget.item.price.toString(),
                       style: const TextStyle(
                           color: CustomColors.placeholder,
                           fontSize: 14,
@@ -63,8 +62,7 @@ class _GridProductItemState extends State<GridProductItem> {
                   ],
                 ),
                 InkWell(
-                  customBorder:
-                      Border.all(color: CustomColors.black, width: 1),
+                  customBorder: Border.all(color: CustomColors.black, width: 1),
                   onTap: () {},
                   child: const Icon(Icons.shopping_cart_rounded),
                 )

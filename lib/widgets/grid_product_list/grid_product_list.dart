@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shopper/navigation/routes.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 import '../grid_product_item/grid_product_item.dart';
 
 class GridProductList extends StatefulWidget {
@@ -14,6 +14,7 @@ class _GridProductListState extends State<GridProductList> {
   navigate() {
     navigateTo(context, Routes.details);
   }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -34,8 +35,7 @@ class _GridProductListState extends State<GridProductList> {
               maxCrossAxisExtent: 300,
               childAspectRatio: 3.1 / 4,
               crossAxisSpacing: 20,
-              mainAxisSpacing: 20
-          ),
+              mainAxisSpacing: 20),
           itemCount: widget.items.length,
           itemBuilder: (context, index) {
             final item = widget.items[index];

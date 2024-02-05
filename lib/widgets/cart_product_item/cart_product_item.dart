@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
 
@@ -64,9 +64,11 @@ class _CartProductItemState extends State<CartProductItem> {
                             fontSize: 20,
                             fontFamily: Fonts.medium),
                       ),
-                      const SizedBox(height: 9,),
+                      const SizedBox(
+                        height: 9,
+                      ),
                       Text(
-                        widget.item.price,
+                        widget.item.price.toString(),
                         style: const TextStyle(
                             color: CustomColors.placeholder,
                             fontSize: 18,
@@ -102,8 +104,8 @@ class _CartProductItemState extends State<CartProductItem> {
                                         width: 1,
                                         color: CustomColors.lightGrey),
                                     borderRadius: BorderRadius.circular(10.0)
-                                  // color: CustomColors.secondary,
-                                ),
+                                    // color: CustomColors.secondary,
+                                    ),
                                 child: const Center(child: Text('+'))),
                           ),
                         ],

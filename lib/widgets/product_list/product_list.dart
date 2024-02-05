@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 import 'package:shopper/navigation/routes.dart';
 
 typedef RenderItem = Widget Function(Product item);
 
 class ProductList extends StatefulWidget {
-  const ProductList({Key? key, required this.items, required this.renderItem }) : super(key: key);
+  const ProductList({Key? key, required this.items, required this.renderItem})
+      : super(key: key);
   final List<Product> items;
   final RenderItem renderItem;
   @override
@@ -17,6 +18,7 @@ class _ProductListState extends State<ProductList> {
     navigateTo(context, Routes.details);
     // GoRouter.of(context).go(Routes.details);
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(

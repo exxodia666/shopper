@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:shopper/models/user.dart';
+import 'package:shopper/models/user/user.dart';
 import 'authentication_api.dart';
 import 'errors.dart';
 

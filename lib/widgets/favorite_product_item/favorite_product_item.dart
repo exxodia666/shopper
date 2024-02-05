@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopper/models/product.dart';
+import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
 
@@ -68,7 +68,7 @@ class _FavoriteProductItemState extends State<FavoriteProductItem> {
                         height: 5,
                       ),
                       Text(
-                        widget.item.price,
+                        widget.item.price.toString(),
                         style: const TextStyle(
                             color: CustomColors.placeholder,
                             fontSize: 18,
