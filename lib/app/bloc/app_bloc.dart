@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shopper/authentication/authentication.dart';
+import 'package:shopper/models/user/user.dart';
+import 'package:shopper/repository/authentication_repository.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
@@ -10,14 +11,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({required AuthenticationRepository authenticationRepository})
       : _authenticationRepository = authenticationRepository,
         super(
-        authenticationRepository.currentUser.isNotEmpty
-            ? AppState.authenticated(authenticationRepository.currentUser)
-            : const AppState.unauthenticated(),
-      ) {
+          authenticationRepository.currentUser.isNotEmpty
+              ? AppState.authenticated(authenticationRepository.currentUser)
+              : const AppState.unauthenticated(),
+        ) {
     on<_AppUserChanged>(_onUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);
     _userSubscription = _authenticationRepository.user.listen(
-          (user) => add(_AppUserChanged(user)),
+      (user) => add(_AppUserChanged(user)),
     );
   }
 
