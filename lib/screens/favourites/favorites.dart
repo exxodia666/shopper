@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shopper/models/models.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopper/bloc/favorite/favorite_bloc.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class Favorites extends StatefulWidget {
@@ -10,32 +12,30 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
-  var products = List.generate(
-    1000,
-    (index) => const Product(
-        id: 'fasfasfasfasfas',
-        rating: 40,
-        image: 'https://picsum.photos/250?image=2',
-        description: 'fasfasfasfasfas',
-        title: 'Macbook Air',
-        price: 40000),
-  );
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: ProductList(
-        items: products,
-        renderItem: (item) {
-          return FavoriteProductItem(
-            item: item,
-            onProductPress: () {},
-            onDeletePress: () {},
-          );
-        },
-      ),
-    ));
+    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
+      if (state.status == FavoriteStatus.isLoading) {
+        const Center(
+          child: CupertinoActivityIndicator(
+            color: Colors.black,
+          ),
+        );
+      }
+      return Center(
+          child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: ProductList(
+          items: state.favoriteProducts,
+          renderItem: (item) {
+            return FavoriteProductItem(
+              item: item,
+              onProductPress: () {},
+              onDeletePress: () {},
+            );
+          },
+        ),
+      ));
+    });
   }
 }
