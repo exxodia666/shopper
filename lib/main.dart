@@ -5,6 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shopper/app/app.dart';
 import 'package:shopper/firebase_options.dart';
+import 'package:shopper/repository/favorite_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
 
 import 'api/auth/authentication_firebase_api.dart';
@@ -16,18 +17,6 @@ class SimpleBlocObserver extends BlocObserver {
     super.onChange(bloc, change);
     print('${bloc.runtimeType} $change');
   }
-
-  // @override
-  // void onTransition(Bloc bloc, Transition transition) {
-  //   super.onTransition(bloc, transition);
-  //   print('${bloc.runtimeType} $transition');
-  // }
-
-  // @override
-  // void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-  //   print('${bloc.runtimeType} $error $stackTrace');
-  //   super.onError(bloc, error, stackTrace);
-  // }
 }
 
 Future<void> main() async {
@@ -42,6 +31,7 @@ Future<void> main() async {
       AuthenticationRepository(authApi: authFirebaseApi);
 
   final productRepository = ProductRepository();
+  final favoriteRepository = FavoriteRepository();
 
   await authenticationRepository.user.first;
 
@@ -53,7 +43,7 @@ Future<void> main() async {
   );
 
   runApp(MyApp(
-    authenticationRepository: authenticationRepository,
-    productRepository: productRepository,
-  ));
+      authenticationRepository: authenticationRepository,
+      productRepository: productRepository,
+      favoriteRepository: favoriteRepository));
 }
