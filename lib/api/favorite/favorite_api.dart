@@ -1,10 +1,11 @@
 import 'package:shopper/models/favorite/favorite_product.dart';
-import 'package:shopper/models/models.dart';
 
 abstract class FavoriteApi {
   FavoriteApi();
 
-  Future<List<Product>> fetchFavorite(String userId);
-  Future<void> addToFavorite(FavoriteProduct product);
-  Future<void> removeFromFavorite(String favoriteId);
+  Future<FavoriteProduct?> fetchFavorite(String userId, String productId);
+  Future<List<FavoriteProduct>> fetchFavorites(String userId);
+
+  Future<void> addToFavorite(String userId, String productId);
+  Future<void> removeFromFavorite(String userId, String productId);
 }

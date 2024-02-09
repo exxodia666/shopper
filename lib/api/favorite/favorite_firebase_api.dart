@@ -1,42 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopper/api/favorite/favorite_api.dart';
 import 'package:shopper/models/favorite/favorite_product.dart';
-import 'package:shopper/models/models.dart';
 
 class FavoriteFirebaseApi extends FavoriteApi {
   final db = FirebaseFirestore.instance;
 
   @override
-  Future<void> addToFavorite(FavoriteProduct product) async {
-    await db.collection('favorite').add(product.toJson());
+  Future<void> addToFavorite(userId, productId) async {
+    final favorite = FavoriteProduct(userId: userId, productId: productId);
+    await db
+        .collection('favorite')
+        .doc("$userId$productId")
+        .set(favorite.toJson());
   }
 
   @override
-  Future<List<Product>> fetchFavorite(String userId) async {
+  Future<void> removeFromFavorite(userId, productId) async {
+    await db.collection('favorite').doc("$userId$productId").delete();
+  }
+
+  @override
+  Future<FavoriteProduct?> fetchFavorite(
+      String userId, String productId) async {
+    final event = await db
+        .collection('favorite')
+        .where('userId', isEqualTo: userId)
+        .where('productId', isEqualTo: productId)
+        .get();
+    if (event.docs.isEmpty) {
+      return null;
+    }
+    return FavoriteProduct.fromJson(event.docs[0].data());
+  }
+
+  @override
+  Future<List<FavoriteProduct>> fetchFavorites(String userId) async {
     final event = await db
         .collection('favorite')
         .where('userId', isEqualTo: userId)
         .get();
 
-    if (event.docs.isEmpty) {
-      return [];
-    }
-
-    List<String> ids = event.docs.map((e) {
-      return e.data()['productId'] as String;
-    }).toList();
-
-    db.collection('products').where(FieldPath.documentId, whereIn: ids).get();
-
-    List<Product> products = [];
-    for (var doc in event.docs) {
-      products.add(Product.fromJson(doc.data()));
-    }
-    return products;
-  }
-
-  @override
-  Future<void> removeFromFavorite(String favoriteId) async {
-    await db.collection('products').doc(favoriteId).delete();
+    return event.docs.map((e) => FavoriteProduct.fromJson(e.data())).toList();
   }
 }
