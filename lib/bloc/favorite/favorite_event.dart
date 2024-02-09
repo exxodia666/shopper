@@ -23,9 +23,10 @@ final class AddToFavorite extends FavoriteEvent {
 }
 
 final class RemoveFromFavorite extends FavoriteEvent {
-  RemoveFromFavorite({required this.favoriteId});
-  final String favoriteId;
+  RemoveFromFavorite({required this.userId, required this.productId});
+  final String userId;
+  final String productId;
 
   @override
-  List<Object> get props => [favoriteId];
+  List<Object> get props => [userId, productId];
 }

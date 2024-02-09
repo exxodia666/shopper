@@ -11,7 +11,9 @@ class Product extends Equatable {
       required this.title,
       required this.price,
       required this.rating,
-      required this.description});
+      required this.description,
+      this.isFavorite = false,
+      this.inCart = false});
 
   final String id;
   final String title;
@@ -19,6 +21,8 @@ class Product extends Equatable {
   final double price;
   final String description;
   final double rating;
+  final bool isFavorite;
+  final bool inCart;
 
   // factory Product.parseFirebaseDoc(Map<String, dynamic> fbDoc) => Product(
   //     id: fbDoc['id'],
@@ -35,29 +39,27 @@ class Product extends Equatable {
 
   Product copyWith({
     required String id,
-    required String title,
-    required String image,
-    required double price,
-    required String description,
-    required double rating,
+    String? title,
+    String? image,
+    double? price,
+    String? description,
+    double? rating,
+    bool? isFavorite,
+    bool? inCart,
   }) {
     return Product(
       id: id,
-      title: title,
-      image: image,
-      price: price,
-      description: description,
-      rating: rating,
+      title: title ?? this.title,
+      image: image ?? this.image,
+      price: price ?? this.price,
+      description: description ?? this.description,
+      rating: rating ?? this.price,
+      isFavorite: isFavorite ?? this.isFavorite,
+      inCart: inCart ?? this.inCart,
     );
   }
 
   @override
-  List<Object?> get props => [
-        id,
-        title,
-        image,
-        price,
-        description,
-        rating,
-      ];
+  List<Object?> get props =>
+      [id, title, image, price, description, rating, isFavorite, inCart];
 }

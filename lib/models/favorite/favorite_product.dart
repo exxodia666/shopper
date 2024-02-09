@@ -5,7 +5,6 @@ part 'favorite_product.g.dart';
 @JsonSerializable()
 class FavoriteProduct {
   FavoriteProduct({required this.userId, required this.productId});
-
   final String userId;
   final String productId;
 

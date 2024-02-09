@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shopper/models/models.dart';
+import 'package:shopper/repository/cart_repository.dart';
+import 'package:shopper/repository/favorite_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
 
 part 'product_list_event.dart';
@@ -9,11 +11,17 @@ part 'product_list_state.dart';
 part 'product_list_bloc.g.dart';
 
 class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
-  ProductListBloc(this._productRepository) : super(const ProductListState()) {
+  ProductListBloc(
+      this._productRepository, this._favoriteRepository, this._cartRepository)
+      : super(const ProductListState()) {
     on<ProductListFetch>(_onProductListFetch);
+    on<ChangeProductFavorite>(_onChangeProductFavorite);
+    on<AddProductToCart>(_onAddToCart);
   }
 
   final ProductRepository _productRepository;
+  final FavoriteRepository _favoriteRepository;
+  final CartRepository _cartRepository;
 
   Future<void> _onProductListFetch(
       ProductListFetch event, Emitter<ProductListState> emit) async {
@@ -22,30 +30,74 @@ class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
     emit(state.copyWith(
       status: ProductListStatus.isLoading,
     ));
-
+    //todo reafactor
     try {
-      // if (state.status == ProductListStatus.initial) {
-      //   final posts = await _fetchPosts();
-      //   return emit(state.copyWith(
-      //     status: ProductListStatus.success,
-      //     posts: posts,
-      //     hasReachedMax: false,
-      //   ));
-      // }
-      final products = await _productRepository.getProduct();
+      final products = await _productRepository.getProductList(event.userId);
+      emit(state.copyWith(
+          status: ProductListStatus.success, products: products));
+    } catch (e) {
+      print(e);
+      emit(state.copyWith(status: ProductListStatus.failure));
+    }
+  }
+
+  // Todo refactor
+  Future<void> _onChangeProductFavorite(
+      ChangeProductFavorite event, Emitter<ProductListState> emit) async {
+    final prevState = state;
+    try {
+      bool prevIsFavorite = false;
       emit(state.copyWith(
         status: ProductListStatus.success,
-        products: products,
+        products: state.products.map((product) {
+          if (event.productId == product.id) {
+            prevIsFavorite = product.isFavorite;
+            return product.copyWith(
+                id: product.id, isFavorite: !prevIsFavorite);
+          }
+          return product;
+        }).toList(),
       ));
-      // emit(products.isEmpty
-      //     ? state.copyWith(hasReachedMax: true)
-      //     : state.copyWith(
-      //         status: ProductListStatus.success,
-      //         posts: List.of(state.products)..addAll(products),
-      //         hasReachedMax: false,
-      //       ));
-    } catch (_) {
-      emit(state.copyWith(status: ProductListStatus.failure));
+      if (!prevIsFavorite) {
+        await _favoriteRepository.addFavorite(event.userId, event.productId);
+      } else {
+        await _favoriteRepository.removeFavorite(event.userId, event.productId);
+        //
+      }
+    } catch (e) {
+      print(e);
+      // rollback prev state;
+      emit(prevState.copyWith());
+    }
+  }
+
+  // Todo refactor
+  Future<void> _onAddToCart(
+      AddProductToCart event, Emitter<ProductListState> emit) async {
+    print('add to cart cart');
+    final prevState = state;
+    try {
+      bool prevInCart = false;
+      emit(state.copyWith(
+        status: ProductListStatus.success,
+        products: state.products.map((product) {
+          if (event.productId == product.id) {
+            prevInCart = product.inCart;
+            return product.copyWith(id: product.id, inCart: !prevInCart);
+          }
+          return product;
+        }).toList(),
+      ));
+      if (!prevInCart) {
+        await _cartRepository.addToCart(event.userId, event.productId);
+      } else {
+        await _cartRepository.removeFromCart(event.userId, event.productId);
+        //
+      }
+    } catch (e) {
+      print(e);
+      // rollback prev state;
+      emit(prevState.copyWith());
     }
   }
 
