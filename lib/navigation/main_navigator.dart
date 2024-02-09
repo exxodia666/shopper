@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
+import 'package:shopper/bloc/cart/cart_bloc.dart';
+import 'package:shopper/bloc/favorite/favorite_bloc.dart';
+import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/stacks/auth_stack.dart';
 import 'package:shopper/navigation/stacks/favorite_stack.dart';
 import 'package:shopper/navigation/stacks/home_stack.dart';
 import 'package:shopper/navigation/stacks/order_stack.dart';
 import 'package:shopper/navigation/stacks/profile_stack.dart';
+import 'package:shopper/repository/cart_repository.dart';
+import 'package:shopper/repository/favorite_repository.dart';
+import 'package:shopper/repository/product_repository.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -54,19 +60,41 @@ class _MainNavigatorState extends State<MainNavigator> {
   @override
   Widget build(BuildContext context) {
     var authStatus = context.select((AppBloc bloc) => bloc.state.status);
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    var user = context.select((AppBloc bloc) => bloc.state.user);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => FavoriteBloc(context.read<FavoriteRepository>(),
+              context.read<ProductRepository>())
+            ..add(FavoriteProductFetch(userId: user.id)),
+        ),
+        BlocProvider(
+          create: (context) => ProductListBloc(
+            context.read<ProductRepository>(),
+            context.read<FavoriteRepository>(),
+            context.read<CartRepository>(),
+          )..add(ProductListFetch(userId: user.id)),
+        ),
+        BlocProvider(
+          create: (context) => CartBloc(
+              context.read<CartRepository>(), context.read<ProductRepository>())
+            ..add(CartFetch(userId: user.id)),
+        ),
+      ],
+      child: MaterialApp.router(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        routerConfig:
+            authStatus == AppStatus.unauthenticated ? _authRouter : _router,
+        // routes: {
+        //   '/': (context) => SignIn(),
+        //   '/signUp': (context) => SignUp(),
+        //   '/home': (context) => Home(),
+        // },
+        // home: const SignIn(),
       ),
-      routerConfig:
-          authStatus == AppStatus.unauthenticated ? _authRouter : _router,
-      // routes: {
-      //   '/': (context) => SignIn(),
-      //   '/signUp': (context) => SignUp(),
-      //   '/home': (context) => Home(),
-      // },
-      // home: const SignIn(),
     );
   }
 }
