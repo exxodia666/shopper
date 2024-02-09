@@ -7,6 +7,7 @@ import 'package:shopper/navigation/header.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
 import 'package:shopper/repository/favorite_repository.dart';
+import 'package:shopper/repository/product_repository.dart';
 import 'package:shopper/screens/Favourites/favorites.dart';
 import 'package:shopper/widgets/widgets.dart';
 
@@ -23,7 +24,8 @@ GoRoute favoritesStack = GoRoute(
         selectedRoute: GoRouter.of(context).location,
       ),
       child: BlocProvider(
-        create: (context) => FavoriteBloc(context.read<FavoriteRepository>())
+        create: (context) => FavoriteBloc(context.read<FavoriteRepository>(),
+            context.read<ProductRepository>())
           ..add(FavoriteProductFetch(userId: user.id)),
         child: const Favorites(),
       ),

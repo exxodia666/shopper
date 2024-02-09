@@ -20,21 +20,24 @@ class _CategoryProductsState extends State<CategoryProducts> {
         image: 'https://picsum.photos/250?image=2',
         description: 'fasfasfasfasfas',
         title: 'Macbook Air',
-        price: 40000),
+        price: 40000,
+        isFavorite: false),
     const Product(
         id: 'fasfasfasfasfas',
         rating: 40,
         image: 'https://picsum.photos/250?image=5',
         description: 'fasfasfasfasfas',
         title: 'Macbook Air',
-        price: 40000),
+        price: 40000,
+        isFavorite: false),
     const Product(
         id: 'fasfasfasfasfas',
         rating: 40,
         image: 'https://picsum.photos/250?image=7',
         description: 'fasfasfasfasfas',
         title: 'Macbook Air',
-        price: 40000),
+        price: 40000,
+        isFavorite: false),
   ];
 
   @override

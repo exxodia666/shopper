@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shopper/models/models.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopper/app/bloc/app_bloc.dart';
+import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class Cart extends StatefulWidget {
@@ -10,30 +13,37 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  var products = List.generate(
-      1000,
-      (index) => const Product(
-          id: 'fasfasfasfasfas',
-          rating: 40,
-          image: 'https://picsum.photos/250?image=2',
-          description: 'fasfasfasfasfas',
-          title: 'Macbook Air',
-          price: 40000));
+  @override
+  void initState() {
+    var user = context.read<AppBloc>().state.user;
+    context.read<CartBloc>().add(CartFetch(userId: user.id));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: ProductList(
-        items: products,
-        renderItem: (item) {
-          return CartProductItem(
-            item: item,
-            onProductPress: () {},
-            onDeletePress: () {},
-          );
-        },
-      ),
-    ));
+    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+      if (state.status == CartStatus.isLoading) {
+        const Center(
+          child: CupertinoActivityIndicator(
+            color: Colors.black,
+          ),
+        );
+      }
+      return Center(
+          child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: ProductList(
+          items: state.cartProducts,
+          renderItem: (item) {
+            return CartProductItem(
+              item: item,
+              onProductPress: () {},
+              onDeletePress: () {},
+            );
+          },
+        ),
+      ));
+    });
   }
 }

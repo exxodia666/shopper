@@ -22,7 +22,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         price: 500,
         rating: 4,
         description:
-            'Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.');
+            'Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.Trendy, youthful and innovative are what you can expect from the smart fashion for men, women and children from United Colors of Benetton. Cool track pants, stylish T-shirts, colourful backpacks, floral print trousers, canvas boat shoes – browse through the brand’s collection on AJIO to explore the latest in high street fashion.',
+        isFavorite: false);
 
     return SafeArea(
       child: SingleChildScrollView(

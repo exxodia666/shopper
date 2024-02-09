@@ -1,4 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopper/app/bloc/app_bloc.dart';
+import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/models/models.dart';
 import '../grid_product_item/grid_product_item.dart';
@@ -17,18 +20,14 @@ class _GridProductListState extends State<GridProductList> {
 
   @override
   Widget build(BuildContext context) {
+    var user = context.select((AppBloc bloc) => bloc.state.user);
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 0.0),
         child: GridView.builder(
           primary: false,
-          // scrollDirection: Axis.vertical,
           shrinkWrap: true,
           padding: const EdgeInsets.only(
-            // horizontal: 0.0,
-
-            // change top to 60 if Search bar appear
-            // top: 60,
             bottom: 120,
           ),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -41,7 +40,19 @@ class _GridProductListState extends State<GridProductList> {
             final item = widget.items[index];
             return GridProductItem(
               item: item,
+              isFavorite: item.isFavorite,
               onProductPress: navigate,
+              onCartPress: () {
+                // Todo add animation on this
+                context
+                    .read<ProductListBloc>()
+                    .add(AddProductToCart(productId: item.id, userId: user.id));
+              },
+              onFavoritePress: () {
+                // Todo add animation on this
+                context.read<ProductListBloc>().add(
+                    ChangeProductFavorite(productId: item.id, userId: user.id));
+              },
             );
           },
         ),
