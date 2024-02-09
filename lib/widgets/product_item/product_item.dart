@@ -17,11 +17,6 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      // print(widget.item.image);
-      print(
-          'TestWidget Number(${widget.item.rating}): ${ModalRoute.of(context)?.isCurrent}');
-    }
     return InkWell(
       onTap: () {
         widget.onProductPress();
