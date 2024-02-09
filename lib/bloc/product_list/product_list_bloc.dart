@@ -74,7 +74,6 @@ class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
   // Todo refactor
   Future<void> _onAddToCart(
       AddProductToCart event, Emitter<ProductListState> emit) async {
-    print('add to cart cart');
     final prevState = state;
     try {
       bool prevInCart = false;
