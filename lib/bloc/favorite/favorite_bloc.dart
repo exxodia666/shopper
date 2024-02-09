@@ -57,7 +57,6 @@ class FavoriteBloc extends HydratedBloc<FavoriteEvent, FavoriteState> {
       status: FavoriteStatus.isLoading,
     ));
     try {
-      print('here');
       await _favoriteRepository.addFavorite(event.userId, event.productId);
       emit(state.copyWith(
         status: FavoriteStatus.success,

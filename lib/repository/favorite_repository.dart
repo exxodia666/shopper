@@ -17,7 +17,6 @@ class FavoriteRepository {
   final ProductApi _productApiClient;
 
   Future<void> addFavorite(String userId, String productId) async {
-    print('req');
     await _favoriteApiClient.addToFavorite(userId, productId);
   }
 
