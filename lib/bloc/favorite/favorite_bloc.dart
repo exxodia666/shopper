@@ -62,7 +62,6 @@ class FavoriteBloc extends HydratedBloc<FavoriteEvent, FavoriteState> {
         status: FavoriteStatus.success,
       ));
     } catch (e) {
-      print(e);
       emit(state.copyWith(status: FavoriteStatus.failure));
     }
   }
