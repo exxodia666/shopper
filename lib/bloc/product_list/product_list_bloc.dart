@@ -34,7 +34,6 @@ class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
       emit(state.copyWith(
           status: ProductListStatus.success, products: products));
     } catch (e) {
-      print(e);
       emit(state.copyWith(status: ProductListStatus.failure));
     }
   }
