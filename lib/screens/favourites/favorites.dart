@@ -15,10 +15,17 @@ class Favorites extends StatefulWidget {
 
 class _FavoritesState extends State<Favorites> {
   @override
+  void initState() {
+    var user = context.read<AppBloc>().state.user;
+    context.read<FavoriteBloc>().add(FavoriteProductFetch(userId: user.id));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var user = context.select((AppBloc bloc) => bloc.state.user);
     return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
-      if (state.status == FavoriteStatus.isLoading) {
+      if (state.status == FavoriteStatus.initial) {
         const Center(
           child: CupertinoActivityIndicator(
             color: Colors.black,
@@ -35,8 +42,14 @@ class _FavoritesState extends State<Favorites> {
               item: item,
               onProductPress: () {},
               onDeletePress: () {
-                context.read<ProductListBloc>().add(
-                    ChangeProductFavorite(productId: item.id, userId: user.id));
+                context.read<FavoriteBloc>().add(
+                    RemoveFromFavorite(productId: item.id, userId: user.id));
+                context
+                    .read<FavoriteBloc>()
+                    .add(FavoriteProductFetch(userId: user.id));
+
+                context.read<ProductListBloc>().add(ChangeProduct(
+                    productId: item.id, isFavorite: !item.isFavorite));
               },
             );
           },

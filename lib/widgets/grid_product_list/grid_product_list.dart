@@ -14,7 +14,7 @@ class GridProductList extends StatefulWidget {
       : super(key: key);
 
   final List<Product> items;
-  final Function(String, String) onFavoritePress;
+  final Function(Product, String) onFavoritePress;
   final Function(Product, String) onCartPress;
   final Function onProductPress;
   @override
@@ -52,7 +52,7 @@ class _GridProductListState extends State<GridProductList> {
                 widget.onCartPress(item, user.id);
               },
               onFavoritePress: () {
-                widget.onFavoritePress(item.id, user.id);
+                widget.onFavoritePress(item, user.id);
                 // Todo add animation on this
               },
             );

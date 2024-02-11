@@ -15,8 +15,7 @@ class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
       this._productRepository, this._favoriteRepository, this._cartRepository)
       : super(const ProductListState()) {
     on<ProductListFetch>(_onProductListFetch);
-    on<ChangeProductFavorite>(_onChangeProductFavorite);
-    on<AddProductToCart>(_onAddToCart);
+    on<ChangeProduct>(_changeProduct);
   }
 
   final ProductRepository _productRepository;
@@ -30,7 +29,6 @@ class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
     emit(state.copyWith(
       status: ProductListStatus.isLoading,
     ));
-    //todo reafactor
     try {
       final products = await _productRepository.getProductList(event.userId);
       emit(state.copyWith(
@@ -41,64 +39,77 @@ class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
     }
   }
 
-  // Todo refactor
-  Future<void> _onChangeProductFavorite(
-      ChangeProductFavorite event, Emitter<ProductListState> emit) async {
-    final prevState = state;
-    try {
-      bool prevIsFavorite = false;
-      emit(state.copyWith(
+  void _changeProduct(ChangeProduct event, Emitter<ProductListState> emit) {
+    emit(state.copyWith(
         status: ProductListStatus.success,
         products: state.products.map((product) {
-          if (event.productId == product.id) {
-            prevIsFavorite = product.isFavorite;
-            return product.copyWith(
-                id: product.id, isFavorite: !prevIsFavorite);
-          }
-          return product;
-        }).toList(),
-      ));
-      if (!prevIsFavorite) {
-        await _favoriteRepository.addFavorite(event.userId, event.productId);
-      } else {
-        await _favoriteRepository.removeFavorite(event.userId, event.productId);
-        //
-      }
-    } catch (e) {
-      print(e);
-      // rollback prev state;
-      emit(prevState.copyWith());
-    }
+          return product.id == event.productId
+              ? product.copyWith(
+                  id: product.id,
+                  isFavorite: event.isFavorite,
+                  inCart: event.inCart)
+              : product;
+        }).toList()));
   }
 
-  // Todo refactor
-  Future<void> _onAddToCart(
-      AddProductToCart event, Emitter<ProductListState> emit) async {
-    final prevState = state;
-    try {
-      bool prevInCart = false;
-      emit(state.copyWith(
-        status: ProductListStatus.success,
-        products: state.products.map((product) {
-          if (event.productId == product.id) {
-            prevInCart = product.inCart;
-            return product.copyWith(id: product.id, inCart: !prevInCart);
-          }
-          return product;
-        }).toList(),
-      ));
-      if (!prevInCart) {
-        await _cartRepository.addToCart(event.userId, event.productId);
-      } else {
-        await _cartRepository.removeFromCart(event.userId, event.productId);
-        //
-      }
-    } catch (e) {
-      print(e);
-      // rollback prev state;
-      emit(prevState.copyWith());
-    }
-  }
+  // // Todo refactor
+  // Future<void> _onChangeProductFavorite(
+  //     ChangeProductFavorite event, Emitter<ProductListState> emit) async {
+  //   final prevState = state;
+  //   try {
+  //     bool prevIsFavorite = false;
+  //     emit(state.copyWith(
+  //       status: ProductListStatus.success,
+  //       products: state.products.map((product) {
+  //         if (event.productId == product.id) {
+  //           prevIsFavorite = product.isFavorite;
+  //           return product.copyWith(
+  //               id: product.id, isFavorite: !prevIsFavorite);
+  //         }
+  //         return product;
+  //       }).toList(),
+  //     ));
+  //     if (!prevIsFavorite) {
+  //       await _favoriteRepository.addFavorite(event.userId, event.productId);
+  //     } else {
+  //       await _favoriteRepository.removeFavorite(event.userId, event.productId);
+  //       //
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     // rollback prev state;
+  //     emit(prevState.copyWith());
+  //   }
+  // }
+
+  // // Todo refactor
+  // Future<void> _onAddToCart(
+  //     AddProductToCart event, Emitter<ProductListState> emit) async {
+  //   final prevState = state;
+  //   try {
+  //     bool prevInCart = false;
+  //     emit(state.copyWith(
+  //       status: ProductListStatus.success,
+  //       products: state.products.map((product) {
+  //         if (event.productId == product.id) {
+  //           prevInCart = product.inCart;
+  //           return product.copyWith(id: product.id, inCart: !prevInCart);
+  //         }
+  //         return product;
+  //       }).toList(),
+  //     ));
+  //     if (!prevInCart) {
+  //       await _cartRepository.addToCart(event.userId, event.productId);
+  //     } else {
+  //       await _cartRepository.removeFromCart(event.userId, event.productId);
+  //       //
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     // rollback prev state;
+  //     emit(prevState.copyWith());
+  //   }
+  // }
 
   @override
   ProductListState fromJson(Map<String, dynamic> json) {

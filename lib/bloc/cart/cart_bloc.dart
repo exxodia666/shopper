@@ -14,8 +14,8 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
   CartBloc(this._cartRepository, this._productRepository)
       : super(const CartState()) {
     on<CartFetch>(_onCartFetch);
-    on<AddToCart>(_onAddCart);
-    on<RemoveFromCart>(_onRemoveCart);
+    on<AddToCart>(_onAddToCart);
+    on<RemoveFromCart>(_onRemoveFromCart);
   }
 
   final CartRepository _cartRepository;
@@ -30,11 +30,12 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
 
       emit(state.copyWith(status: CartStatus.success, cartProducts: products));
     } catch (e) {
+      print(e);
       emit(state.copyWith(status: CartStatus.failure));
     }
   }
 
-  Future<void> _onRemoveCart(
+  Future<void> _onRemoveFromCart(
       RemoveFromCart event, Emitter<CartState> emit) async {
     emit(state.copyWith(
       status: CartStatus.isLoading,
@@ -49,7 +50,7 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onAddCart(AddToCart event, Emitter<CartState> emit) async {
+  Future<void> _onAddToCart(AddToCart event, Emitter<CartState> emit) async {
     emit(state.copyWith(
       status: CartStatus.isLoading,
     ));

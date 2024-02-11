@@ -31,7 +31,7 @@ class CartRepository {
   Future<List<Product>> fetchCartList(String userId) async {
     final products = await _productApiClient.fetchProducts();
     final cart = await _cartApiClient.fetchCart(userId);
-
+    print(cart);
     return products.where((element) {
       final inCart = cart.where((cartItem) {
         return cartItem.productId == element.id;

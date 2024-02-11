@@ -11,14 +11,9 @@ final class ProductListFetch extends ProductListEvent {
   ProductListFetch({required this.userId});
 }
 
-final class ChangeProductFavorite extends ProductListEvent {
-  ChangeProductFavorite({required this.productId, required this.userId});
+final class ChangeProduct extends ProductListEvent {
   final String productId;
-  final String userId;
-}
-
-final class AddProductToCart extends ProductListEvent {
-  AddProductToCart({required this.productId, required this.userId});
-  final String productId;
-  final String userId;
+  final bool? isFavorite;
+  final bool? inCart;
+  ChangeProduct({required this.productId, this.isFavorite, this.inCart});
 }

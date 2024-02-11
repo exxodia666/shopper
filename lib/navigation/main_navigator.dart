@@ -5,6 +5,7 @@ import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/bloc/favorite/favorite_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
+import 'package:shopper/cubit/cart_product_count/cart_product_count_cubit.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/stacks/auth_stack.dart';
 import 'package:shopper/navigation/stacks/favorite_stack.dart';
@@ -60,25 +61,25 @@ class _MainNavigatorState extends State<MainNavigator> {
   @override
   Widget build(BuildContext context) {
     var authStatus = context.select((AppBloc bloc) => bloc.state.status);
-    var user = context.select((AppBloc bloc) => bloc.state.user);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => FavoriteBloc(context.read<FavoriteRepository>(),
-              context.read<ProductRepository>())
-            ..add(FavoriteProductFetch(userId: user.id)),
+              context.read<ProductRepository>()),
         ),
         BlocProvider(
           create: (context) => ProductListBloc(
             context.read<ProductRepository>(),
             context.read<FavoriteRepository>(),
             context.read<CartRepository>(),
-          )..add(ProductListFetch(userId: user.id)),
+          ),
         ),
         BlocProvider(
-          create: (context) => CartBloc(
-              context.read<CartRepository>(), context.read<ProductRepository>())
-            ..add(CartFetch(userId: user.id)),
+          create: (context) => CartBloc(context.read<CartRepository>(),
+              context.read<ProductRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => CartProdCountCubit(),
         ),
       ],
       child: MaterialApp.router(

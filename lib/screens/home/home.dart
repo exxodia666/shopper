@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopper/app/bloc/app_bloc.dart';
+import 'package:shopper/bloc/cart/cart_bloc.dart';
+import 'package:shopper/bloc/favorite/favorite_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/navigation/routes.dart';
@@ -13,29 +17,46 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  getProducts() {
+    var user = context.read<AppBloc>().state.user;
+    context.read<ProductListBloc>().add(ProductListFetch(userId: user.id));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getProducts();
+  }
+
   void onProductPress() {
     navigateTo(context, Routes.details);
   }
 
   void onCartPress(Product item, String userId) {
+    context.read<CartBloc>().add(item.inCart
+        ? RemoveFromCart(productId: item.id, userId: userId)
+        : AddToCart(productId: item.id, userId: userId));
     context
         .read<ProductListBloc>()
-        .add(AddProductToCart(productId: item.id, userId: userId));
+        .add(ChangeProduct(productId: item.id, inCart: !item.inCart));
     if (!item.inCart) switchTab(context, Routes.cart);
   }
 
-  void onFavoritePress(itemId, userId) {
+  void onFavoritePress(Product item, userId) {
     // Todo add animation on this
+    context.read<FavoriteBloc>().add(!item.isFavorite
+        ? AddToFavorite(productId: item.id, userId: userId)
+        : RemoveFromFavorite(productId: item.id, userId: userId));
     context
         .read<ProductListBloc>()
-        .add(ChangeProductFavorite(productId: itemId, userId: userId));
+        .add(ChangeProduct(productId: item.id, isFavorite: !item.isFavorite));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductListBloc, ProductListState>(
         builder: (context, state) {
-      if (state.status == ProductListStatus.isLoading) {
+      if (state.status == ProductListStatus.initial) {
         return const Center(
           child: CupertinoActivityIndicator(
             color: Colors.black,
@@ -66,9 +87,9 @@ class _HomeState extends State<Home> {
   }
 }
 
-                    // Change GridProductList top to 60 if there is SearchBar
-                    // Positioned(
-                    //     top: 10,
-                    //     width: MediaQuery.of(context).size.width * 0.9,
-                    //     child: const CustomSearchBar()
-                    // ),
+// Change GridProductList top to 60 if there is SearchBar
+// Positioned(
+//     top: 10,
+//     width: MediaQuery.of(context).size.width * 0.9,
+//     child: const CustomSearchBar()
+// ),
