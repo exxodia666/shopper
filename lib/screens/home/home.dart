@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
+import 'package:shopper/models/models.dart';
+import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class Home extends StatefulWidget {
@@ -11,10 +13,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    super.initState();
-    // context.read<ProductsCubit>().fetchProducts();
+  void onProductPress() {
+    navigateTo(context, Routes.details);
+  }
+
+  void onCartPress(Product item, String userId) {
+    context
+        .read<ProductListBloc>()
+        .add(AddProductToCart(productId: item.id, userId: userId));
+    if (!item.inCart) switchTab(context, Routes.cart);
+  }
+
+  void onFavoritePress(itemId, userId) {
+    // Todo add animation on this
+    context
+        .read<ProductListBloc>()
+        .add(ChangeProductFavorite(productId: itemId, userId: userId));
   }
 
   @override
@@ -37,6 +51,9 @@ class _HomeState extends State<Home> {
                 children: [
                   GridProductList(
                     items: state.products,
+                    onFavoritePress: onFavoritePress,
+                    onCartPress: onCartPress,
+                    onProductPress: onProductPress,
                   ),
                 ],
               ),

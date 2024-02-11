@@ -8,13 +8,11 @@ class GridProductItem extends StatefulWidget {
       {Key? key,
       required this.item,
       required this.onProductPress,
-      required this.isFavorite,
       required this.onFavoritePress,
       required this.onCartPress})
       : super(key: key);
 
   final Product item;
-  final bool isFavorite;
   final Function onProductPress;
   final Function onFavoritePress;
   final Function onCartPress;
@@ -56,7 +54,7 @@ class _GridProductItemState extends State<GridProductItem> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(18.0)),
                     //
-                    child: widget.isFavorite
+                    child: widget.item.isFavorite
                         ? const Icon(
                             Icons.favorite,
                             color: Colors.red,

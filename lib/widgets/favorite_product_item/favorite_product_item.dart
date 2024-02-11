@@ -85,7 +85,9 @@ class _FavoriteProductItemState extends State<FavoriteProductItem> {
                   children: [
                     InkWell(
                       // customBorder: Border.all(color: CustomColors.black, width: 1),
-                      onTap: () {},
+                      onTap: () {
+                        widget.onDeletePress();
+                      },
                       child: const Icon(Icons.delete_rounded),
                     ),
                     Spacer()

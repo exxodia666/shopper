@@ -120,10 +120,12 @@ class _CartProductItemState extends State<CartProductItem> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        widget.onDeletePress();
+                      },
                       child: const Icon(Icons.delete_rounded),
                     ),
-                    Spacer()
+                    const Spacer()
                   ],
                 ),
               ),

@@ -1,25 +1,30 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
-import 'package:shopper/bloc/product_list/product_list_bloc.dart';
-import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/models/models.dart';
 import '../grid_product_item/grid_product_item.dart';
 
 class GridProductList extends StatefulWidget {
-  const GridProductList({Key? key, required this.items}) : super(key: key);
+  const GridProductList(
+      {Key? key,
+      required this.items,
+      required this.onFavoritePress,
+      required this.onCartPress,
+      required this.onProductPress})
+      : super(key: key);
+
   final List<Product> items;
+  final Function(String, String) onFavoritePress;
+  final Function(Product, String) onCartPress;
+  final Function onProductPress;
   @override
   State<GridProductList> createState() => _GridProductListState();
 }
 
 class _GridProductListState extends State<GridProductList> {
-  navigate() {
-    navigateTo(context, Routes.details);
-  }
-
   @override
   Widget build(BuildContext context) {
+    //todo remove this
     var user = context.select((AppBloc bloc) => bloc.state.user);
     return Expanded(
       child: Padding(
@@ -40,18 +45,15 @@ class _GridProductListState extends State<GridProductList> {
             final item = widget.items[index];
             return GridProductItem(
               item: item,
-              isFavorite: item.isFavorite,
-              onProductPress: navigate,
+              onProductPress: () {
+                widget.onProductPress();
+              },
               onCartPress: () {
-                // Todo add animation on this
-                context
-                    .read<ProductListBloc>()
-                    .add(AddProductToCart(productId: item.id, userId: user.id));
+                widget.onCartPress(item, user.id);
               },
               onFavoritePress: () {
+                widget.onFavoritePress(item.id, user.id);
                 // Todo add animation on this
-                context.read<ProductListBloc>().add(
-                    ChangeProductFavorite(productId: item.id, userId: user.id));
               },
             );
           },
@@ -60,3 +62,21 @@ class _GridProductListState extends State<GridProductList> {
     );
   }
 }
+
+
+                // showDialog(
+                //     context: context,
+                //     builder: (context) => BlocBuilder<CartProdCountCubit, int>(
+                //           builder: (context, state) {
+                //             return AddToCartModal(
+                //                 item: item,
+                //                 counter: state,
+                //                 reset: context.read<CartProdCountCubit>().reset,
+                //                 increment: context
+                //                     .read<CartProdCountCubit>()
+                //                     .increment,
+                //                 decrement: context
+                //                     .read<CartProdCountCubit>()
+                //                     .decrement);
+                //           },
+                //         ));

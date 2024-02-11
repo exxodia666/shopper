@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
+import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class Cart extends StatefulWidget {
@@ -22,6 +23,7 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    var user = context.select((AppBloc bloc) => bloc.state.user);
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       if (state.status == CartStatus.isLoading) {
         const Center(
@@ -39,7 +41,11 @@ class _CartState extends State<Cart> {
             return CartProductItem(
               item: item,
               onProductPress: () {},
-              onDeletePress: () {},
+              onDeletePress: () {
+                context
+                    .read<ProductListBloc>()
+                    .add(AddProductToCart(productId: item.id, userId: user.id));
+              },
             );
           },
         ),
