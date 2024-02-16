@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -11,24 +13,26 @@ part 'cart_state.dart';
 part 'cart_bloc.g.dart';
 
 class CartBloc extends HydratedBloc<CartEvent, CartState> {
-  CartBloc(this._cartRepository, this._productRepository)
-      : super(const CartState()) {
+  CartBloc(this._cartRepository) : super(const CartState()) {
     on<CartFetch>(_onCartFetch);
     on<AddToCart>(_onAddToCart);
     on<RemoveFromCart>(_onRemoveFromCart);
+
+    on<ChangeCartItemCount>(_changeItemCount);
   }
 
   final CartRepository _cartRepository;
-  final ProductRepository _productRepository;
 
   Future<void> _onCartFetch(CartFetch event, Emitter<CartState> emit) async {
     emit(state.copyWith(
       status: CartStatus.isLoading,
     ));
     try {
-      final products = await _cartRepository.fetchCartList(event.userId);
-
-      emit(state.copyWith(status: CartStatus.success, cartProducts: products));
+      final response = await _cartRepository.fetchCartList(event.userId);
+      emit(state.copyWith(
+          status: CartStatus.success,
+          cartProducts: response.products,
+          cartItems: response.cartItems));
     } catch (e) {
       print(e);
       emit(state.copyWith(status: CartStatus.failure));
@@ -62,6 +66,26 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
     } catch (e) {
       print(e);
       emit(state.copyWith(status: CartStatus.failure));
+    }
+  }
+
+  void _changeItemCount(
+      ChangeCartItemCount event, Emitter<CartState> emit) async {
+    try {
+      int count = 0;
+      var newItems = state.cartItems.map((e) {
+        if (e.productId == event.productId) {
+          count = event.dir == Dir.incr ? e.count + 1 : max(e.count - 1, 1);
+          return e.copyWith(count: count);
+        }
+        return e.copyWith();
+      }).toList();
+      emit(state.copyWith(cartItems: newItems));
+      await _cartRepository.changeCartItemCount(
+          event.userId, event.productId, count);
+    } catch (e) {
+      print(e);
+      emit(state.copyWith());
     }
   }
 
