@@ -13,11 +13,16 @@ CartState _$CartStateFromJson(Map<String, dynamic> json) => CartState(
               ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Product>[],
+      cartItems: (json['cartItems'] as List<dynamic>?)
+              ?.map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <CartItem>[],
     );
 
 Map<String, dynamic> _$CartStateToJson(CartState instance) => <String, dynamic>{
       'status': _$CartStatusEnumMap[instance.status]!,
       'cartProducts': instance.cartProducts,
+      'cartItems': instance.cartItems,
     };
 
 const _$CartStatusEnumMap = {

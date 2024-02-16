@@ -8,10 +8,19 @@ class CartProductItem extends StatefulWidget {
       {Key? key,
       required this.item,
       required this.onProductPress,
-      required this.onDeletePress})
+      required this.onDeletePress,
+      required this.onIncrement,
+      required this.onDecrement,
+      required this.count})
       : super(key: key);
+
   final Function onProductPress;
   final Function onDeletePress;
+
+  final int count;
+  final Function onIncrement;
+  final Function onDecrement;
+
   final Product item;
   @override
   State<CartProductItem> createState() => _CartProductItemState();
@@ -78,8 +87,11 @@ class _CartProductItemState extends State<CartProductItem> {
                       Row(
                         children: [
                           InkWell(
+                            onTap: () {
+                              widget.onDecrement();
+                            },
                             child: Container(
-                                margin: EdgeInsets.only(right: 12),
+                                margin: const EdgeInsets.only(right: 12),
                                 width: 20,
                                 height: 20,
                                 decoration: BoxDecoration(
@@ -92,11 +104,14 @@ class _CartProductItemState extends State<CartProductItem> {
                                 child: const Center(child: Text('-'))),
                           ),
                           Container(
-                              margin: EdgeInsets.only(right: 12),
-                              child: Text('1')),
+                              margin: const EdgeInsets.only(right: 12),
+                              child: Text(widget.count.toString())),
                           InkWell(
+                            onTap: () {
+                              widget.onIncrement();
+                            },
                             child: Container(
-                                margin: EdgeInsets.only(right: 12),
+                                margin: const EdgeInsets.only(right: 12),
                                 width: 20,
                                 height: 20,
                                 decoration: BoxDecoration(

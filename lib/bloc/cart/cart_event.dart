@@ -30,3 +30,16 @@ final class RemoveFromCart extends CartEvent {
   @override
   List<Object> get props => [userId, productId];
 }
+
+enum Dir { incr, decr }
+
+final class ChangeCartItemCount extends CartEvent {
+  ChangeCartItemCount(
+      {required this.userId, required this.productId, required this.dir});
+  final String userId;
+  final String productId;
+  final Dir dir;
+
+  @override
+  List<Object> get props => [userId, productId];
+}

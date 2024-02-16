@@ -19,7 +19,6 @@ class ProfilePage extends StatelessWidget {
           Text(user.email ?? '', style: textTheme.titleLarge),
           const SizedBox(height: 4),
           Text(user.name ?? '', style: textTheme.headlineSmall),
-          Text(user.id, style: textTheme.headlineSmall),
         ],
       ),
     );

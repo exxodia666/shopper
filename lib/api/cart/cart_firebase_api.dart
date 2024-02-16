@@ -33,7 +33,15 @@ class CartFirebaseApi extends CartApi {
   Future<List<CartItem>> fetchCart(String userId) async {
     final event =
         await db.collection('cart').where('userId', isEqualTo: userId).get();
-
     return event.docs.map((e) => CartItem.fromJson(e.data())).toList();
+  }
+
+  @override
+  Future<void> changeCartItemCount(
+      String userId, String productId, int count) async {
+    await db
+        .collection('cart')
+        .doc("$userId$productId")
+        .set({'count': count}, SetOptions(merge: true));
   }
 }

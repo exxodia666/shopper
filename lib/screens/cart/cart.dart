@@ -16,10 +16,9 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   @override
   void initState() {
-    print('fetch cart');
+    super.initState();
     var user = context.read<AppBloc>().state.user;
     context.read<CartBloc>().add(CartFetch(userId: user.id));
-    super.initState();
   }
 
   @override
@@ -39,9 +38,22 @@ class _CartState extends State<Cart> {
         child: ProductList(
           items: state.cartProducts,
           renderItem: (item) {
+            final count = state.cartItems
+                .where((element) => element.productId == item.id)
+                .toList()[0]
+                .count;
             return CartProductItem(
               item: item,
               onProductPress: () {},
+              onDecrement: () {
+                context.read<CartBloc>().add(ChangeCartItemCount(
+                    userId: user.id, productId: item.id, dir: Dir.decr));
+              },
+              onIncrement: () {
+                context.read<CartBloc>().add(ChangeCartItemCount(
+                    userId: user.id, productId: item.id, dir: Dir.incr));
+              },
+              count: count, // state.cartItems.length,
               onDeletePress: () {
                 context
                     .read<CartBloc>()

@@ -2,6 +2,12 @@ import 'dart:async';
 import 'package:shopper/api/api.dart';
 import 'package:shopper/models/models.dart';
 
+class CardResponse {
+  CardResponse({required this.products, required this.cartItems});
+  final List<Product> products;
+  final List<CartItem> cartItems;
+}
+
 class CartRepository {
   CartRepository({CartApi? cartApiClient, ProductApi? productApiClient})
       : _cartApiClient = cartApiClient ?? CartFirebaseApi(),
@@ -28,15 +34,21 @@ class CartRepository {
     return cart;
   }
 
-  Future<List<Product>> fetchCartList(String userId) async {
+  Future<CardResponse> fetchCartList(String userId) async {
     final products = await _productApiClient.fetchProducts();
     final cart = await _cartApiClient.fetchCart(userId);
-    print(cart);
-    return products.where((element) {
-      final inCart = cart.where((cartItem) {
-        return cartItem.productId == element.id;
-      });
-      return inCart.isEmpty ? false : true;
-    }).toList();
+    return CardResponse(
+        products: products.where((element) {
+          final inCart = cart.where((cartItem) {
+            return cartItem.productId == element.id;
+          });
+          return inCart.isEmpty ? false : true;
+        }).toList(),
+        cartItems: cart);
+  }
+
+  Future<void> changeCartItemCount(
+      String userId, String productId, int count) async {
+    await _cartApiClient.changeCartItemCount(userId, productId, count);
   }
 }
