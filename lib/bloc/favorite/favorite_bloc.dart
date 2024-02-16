@@ -3,22 +3,19 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/repository/favorite_repository.dart';
-import 'package:shopper/repository/product_repository.dart';
 
 part 'favorite_event.dart';
 part 'favorite_state.dart';
 part 'favorite_bloc.g.dart';
 
 class FavoriteBloc extends HydratedBloc<FavoriteEvent, FavoriteState> {
-  FavoriteBloc(this._favoriteRepository, this._productRepository)
-      : super(const FavoriteState()) {
+  FavoriteBloc(this._favoriteRepository) : super(const FavoriteState()) {
     on<FavoriteProductFetch>(_onFavoriteFetch);
     on<AddToFavorite>(_onAddFavorite);
     on<RemoveFromFavorite>(_onRemoveFavorite);
   }
 
   final FavoriteRepository _favoriteRepository;
-  final ProductRepository _productRepository;
 
   Future<void> _onFavoriteFetch(
       FavoriteProductFetch event, Emitter<FavoriteState> emit) async {

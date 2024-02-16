@@ -64,14 +64,13 @@ class _MainNavigatorState extends State<MainNavigator> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => FavoriteBloc(context.read<FavoriteRepository>(),
-              context.read<ProductRepository>()),
+          create: (context) => FavoriteBloc(
+            context.read<FavoriteRepository>(),
+          ),
         ),
         BlocProvider(
           create: (context) => ProductListBloc(
             context.read<ProductRepository>(),
-            context.read<FavoriteRepository>(),
-            context.read<CartRepository>(),
           ),
         ),
         BlocProvider(
