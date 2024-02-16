@@ -35,35 +35,44 @@ class _CartState extends State<Cart> {
       return Center(
           child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
-        child: ProductList(
-          items: state.cartProducts,
-          renderItem: (item) {
-            final count = state.cartItems
-                .where((element) => element.productId == item.id)
-                .toList()[0]
-                .count;
-            return CartProductItem(
-              item: item,
-              onProductPress: () {},
-              onDecrement: () {
-                context.read<CartBloc>().add(ChangeCartItemCount(
-                    userId: user.id, productId: item.id, dir: Dir.decr));
+        child: Stack(
+          children: [
+            ProductList(
+              items: state.cartProducts,
+              renderItem: (item) {
+                final count = state.cartItems
+                    .where((element) => element.productId == item.id)
+                    .toList()[0]
+                    .count;
+                return CartProductItem(
+                  item: item,
+                  onProductPress: () {},
+                  onDecrement: () {
+                    context.read<CartBloc>().add(ChangeCartItemCount(
+                        userId: user.id, productId: item.id, dir: Dir.decr));
+                  },
+                  onIncrement: () {
+                    context.read<CartBloc>().add(ChangeCartItemCount(
+                        userId: user.id, productId: item.id, dir: Dir.incr));
+                  },
+                  count: count, // state.cartItems.length,
+                  onDeletePress: () {
+                    context.read<CartBloc>().add(
+                        RemoveFromCart(productId: item.id, userId: user.id));
+                    context.read<CartBloc>().add(CartFetch(userId: user.id));
+                    context.read<ProductListBloc>().add(ChangeProduct(
+                        productId: item.id, inCart: !item.inCart));
+                  },
+                );
               },
-              onIncrement: () {
-                context.read<CartBloc>().add(ChangeCartItemCount(
-                    userId: user.id, productId: item.id, dir: Dir.incr));
-              },
-              count: count, // state.cartItems.length,
-              onDeletePress: () {
-                context
-                    .read<CartBloc>()
-                    .add(RemoveFromCart(productId: item.id, userId: user.id));
-                context.read<CartBloc>().add(CartFetch(userId: user.id));
-                context.read<ProductListBloc>().add(
-                    ChangeProduct(productId: item.id, inCart: !item.inCart));
-              },
-            );
-          },
+            ),
+            CartTotal(
+              count: state.cartTotalCount,
+              total: state.shippingPrice + state.cartTotalPrice,
+              subtotal: state.cartTotalPrice,
+              shipping: state.shippingPrice,
+            ),
+          ],
         ),
       ));
     });

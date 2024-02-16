@@ -16,3 +16,4 @@ export './product_list/product_list.dart';
 export './rating/rating.dart';
 export './search_bar/search_bar.dart';
 export './text_input/text_input.dart';
+export './cart_total/cart_total.dart';
