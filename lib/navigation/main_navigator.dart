@@ -75,8 +75,9 @@ class _MainNavigatorState extends State<MainNavigator> {
           ),
         ),
         BlocProvider(
-          create: (context) => CartBloc(context.read<CartRepository>(),
-              context.read<ProductRepository>()),
+          create: (context) => CartBloc(
+            context.read<CartRepository>(),
+          ),
         ),
         BlocProvider(
           create: (context) => CartProdCountCubit(),

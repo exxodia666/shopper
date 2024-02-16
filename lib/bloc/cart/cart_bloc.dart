@@ -5,7 +5,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/repository/cart_repository.dart';
-import 'package:shopper/repository/product_repository.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
