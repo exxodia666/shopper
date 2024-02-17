@@ -59,7 +59,6 @@ class CartFirebaseApi extends CartApi {
         .where('userId', isEqualTo: userId)
         .get();
     for (var doc in querySnapshot.docs) {
-      // doc.reference.delete();
       batch.delete(doc.reference);
     }
     return batch.commit();
