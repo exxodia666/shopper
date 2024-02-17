@@ -14,7 +14,7 @@ class OrderFirebaseApi extends OrderApi {
   Future<void> createOrder(String userId, List<CartItem> cartItems) async {
     final id = const Uuid().v4();
     final batch = db.batch();
-    final event = await db
+    await db
         .collection('order')
         .doc(id)
         .set(OrderItem(userId: userId, total: 1000.0).toJson());
