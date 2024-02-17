@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/bloc/favorite/favorite_bloc.dart';
+import 'package:shopper/bloc/order/order_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/cubit/cart_product_count/cart_product_count_cubit.dart';
 import 'package:shopper/navigation/routes.dart';
@@ -14,6 +15,7 @@ import 'package:shopper/navigation/stacks/order_stack.dart';
 import 'package:shopper/navigation/stacks/profile_stack.dart';
 import 'package:shopper/repository/cart_repository.dart';
 import 'package:shopper/repository/favorite_repository.dart';
+import 'package:shopper/repository/order_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -64,19 +66,24 @@ class _MainNavigatorState extends State<MainNavigator> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => FavoriteBloc(context.read<FavoriteRepository>(),
-              context.read<ProductRepository>()),
+          create: (context) => FavoriteBloc(
+            context.read<FavoriteRepository>(),
+          ),
         ),
         BlocProvider(
           create: (context) => ProductListBloc(
             context.read<ProductRepository>(),
-            context.read<FavoriteRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CartBloc(
             context.read<CartRepository>(),
           ),
         ),
         BlocProvider(
-          create: (context) => CartBloc(context.read<CartRepository>(),
-              context.read<ProductRepository>()),
+          create: (context) => OrderBloc(
+            context.read<OrderRepository>(),
+          ),
         ),
         BlocProvider(
           create: (context) => CartProdCountCubit(),

@@ -51,4 +51,8 @@ class CartRepository {
       String userId, String productId, int count) async {
     await _cartApiClient.changeCartItemCount(userId, productId, count);
   }
+
+  Future<void> clearCart(String userId) async {
+    await _cartApiClient.clearCart(userId);
+  }
 }

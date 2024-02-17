@@ -2,8 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shopper/models/models.dart';
-import 'package:shopper/repository/cart_repository.dart';
-import 'package:shopper/repository/favorite_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
 
 part 'product_list_event.dart';
@@ -11,16 +9,12 @@ part 'product_list_state.dart';
 part 'product_list_bloc.g.dart';
 
 class ProductListBloc extends HydratedBloc<ProductListEvent, ProductListState> {
-  ProductListBloc(
-      this._productRepository, this._favoriteRepository, this._cartRepository)
-      : super(const ProductListState()) {
+  ProductListBloc(this._productRepository) : super(const ProductListState()) {
     on<ProductListFetch>(_onProductListFetch);
     on<ChangeProduct>(_changeProduct);
   }
 
   final ProductRepository _productRepository;
-  final FavoriteRepository _favoriteRepository;
-  final CartRepository _cartRepository;
 
   Future<void> _onProductListFetch(
       ProductListFetch event, Emitter<ProductListState> emit) async {

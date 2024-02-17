@@ -7,6 +7,7 @@ import 'package:shopper/app/app.dart';
 import 'package:shopper/firebase_options.dart';
 import 'package:shopper/repository/cart_repository.dart';
 import 'package:shopper/repository/favorite_repository.dart';
+import 'package:shopper/repository/order_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
 
 import 'api/auth/authentication_firebase_api.dart';
@@ -16,7 +17,7 @@ class SimpleBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    print('$change');
+    // print('$change');
   }
 }
 
@@ -34,7 +35,7 @@ Future<void> main() async {
   final productRepository = ProductRepository();
   final favoriteRepository = FavoriteRepository();
   final cartRepository = CartRepository();
-
+  final orderRepository = OrderRepository();
   await authenticationRepository.user.first;
 
   Bloc.observer = SimpleBlocObserver();
@@ -45,8 +46,10 @@ Future<void> main() async {
   );
 
   runApp(MyApp(
-      authenticationRepository: authenticationRepository,
-      productRepository: productRepository,
-      favoriteRepository: favoriteRepository,
-      cartRepository: cartRepository));
+    authenticationRepository: authenticationRepository,
+    productRepository: productRepository,
+    favoriteRepository: favoriteRepository,
+    cartRepository: cartRepository,
+    orderRepository: orderRepository,
+  ));
 }

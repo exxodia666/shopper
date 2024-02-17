@@ -10,4 +10,6 @@ abstract class CartApi {
   Future<void> removeFromCart(String userId, String productId);
 
   Future<void> changeCartItemCount(String userId, String productId, int count);
+
+  Future<void> clearCart(String userId);
 }

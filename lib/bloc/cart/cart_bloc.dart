@@ -5,7 +5,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/repository/cart_repository.dart';
-import 'package:shopper/repository/product_repository.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -19,6 +18,8 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
     on<RemoveFromCart>(_onRemoveFromCart);
 
     on<ChangeCartItemCount>(_changeItemCount);
+
+    on<ClearCart>(_clearCart);
   }
 
   final CartRepository _cartRepository;
@@ -83,6 +84,16 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
       emit(state.copyWith(cartItems: newItems));
       await _cartRepository.changeCartItemCount(
           event.userId, event.productId, count);
+    } catch (e) {
+      print(e);
+      emit(state.copyWith());
+    }
+  }
+
+  void _clearCart(ClearCart event, Emitter<CartState> emit) async {
+    try {
+      await _cartRepository.clearCart(event.userId);
+      emit(state.copyWith(cartItems: [], cartProducts: []));
     } catch (e) {
       print(e);
       emit(state.copyWith());
