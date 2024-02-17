@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
+import 'package:shopper/bloc/order/order_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/widgets/widgets.dart';
 
@@ -72,6 +73,8 @@ class _CartState extends State<Cart> {
               subtotal: state.cartTotalPrice,
               shipping: state.shippingPrice,
               onCheckout: () {
+                context.read<OrderBloc>().add(
+                    CreateOrder(userId: user.id, cartItems: state.cartItems));
                 context.read<CartBloc>().add(ClearCart(userId: user.id));
               },
             ),

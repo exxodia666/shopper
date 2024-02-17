@@ -4,6 +4,7 @@ import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/navigation/main_navigator.dart';
 import 'package:shopper/repository/cart_repository.dart';
 import 'package:shopper/repository/favorite_repository.dart';
+import 'package:shopper/repository/order_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
 import 'package:shopper/repository/authentication_repository.dart';
 
@@ -13,16 +14,19 @@ class MyApp extends StatelessWidget {
       required favoriteRepository,
       required authenticationRepository,
       required productRepository,
-      required cartRepository})
+      required cartRepository,
+      required orderRepository})
       : _authenticationRepository = authenticationRepository,
         _productRepository = productRepository,
         _favoriteRepository = favoriteRepository,
-        _cartRepository = cartRepository;
+        _cartRepository = cartRepository,
+        _orderRepository = orderRepository;
 
   final AuthenticationRepository _authenticationRepository;
   final ProductRepository _productRepository;
   final FavoriteRepository _favoriteRepository;
   final CartRepository _cartRepository;
+  final OrderRepository _orderRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,8 @@ class MyApp extends StatelessWidget {
               value: _productRepository),
           RepositoryProvider<FavoriteRepository>.value(
               value: _favoriteRepository),
-          RepositoryProvider<CartRepository>.value(value: _cartRepository)
+          RepositoryProvider<CartRepository>.value(value: _cartRepository),
+          RepositoryProvider<OrderRepository>.value(value: _orderRepository)
         ],
         child: MultiBlocProvider(
           providers: [
