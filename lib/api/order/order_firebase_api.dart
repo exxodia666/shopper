@@ -1,3 +1,4 @@
+import 'package:shopper/api/firebase/firebase.dart';
 import 'package:shopper/models/models.dart';
 import 'package:uuid/uuid.dart';
 
@@ -15,13 +16,14 @@ class OrderFirebaseApi extends OrderApi {
     final id = const Uuid().v4();
     final batch = db.batch();
     await db
-        .collection('order')
+        .collection(FirebaseDbKeys.order)
         .doc(id)
         .set(OrderItem(userId: userId, total: 1000.0).toJson());
 
-    final orderItemsRef = db.collection('order_items');
+    final orderItemsRef = db.collection(FirebaseDbKeys.orderItems);
 
     for (var cartItem in cartItems) {
+      // fix cart item ids collissions
       batch.set(orderItemsRef.doc('${cartItem.userId}${cartItem.productId}'),
           cartItem.toJson());
     }
@@ -30,8 +32,10 @@ class OrderFirebaseApi extends OrderApi {
 
   @override
   Future<List<OrderItem>> fetchOrders(String userId) async {
-    final event =
-        await db.collection('orders').where('userId', isEqualTo: userId).get();
+    final event = await db
+        .collection(FirebaseDbKeys.order)
+        .where('userId', isEqualTo: userId)
+        .get();
     return event.docs.map((e) {
       return OrderItem.fromJson(e.data());
     }).toList();
