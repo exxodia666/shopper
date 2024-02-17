@@ -44,4 +44,16 @@ class CartFirebaseApi extends CartApi {
         .doc("$userId$productId")
         .set({'count': count}, SetOptions(merge: true));
   }
+
+  @override
+  Future<void> clearCart(String userId) async {
+    final batch = db.batch();
+    final querySnapshot =
+        await db.collection('cart').where('userId', isEqualTo: userId).get();
+    for (var doc in querySnapshot.docs) {
+      // doc.reference.delete();
+      batch.delete(doc.reference);
+    }
+    return batch.commit();
+  }
 }

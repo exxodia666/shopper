@@ -46,6 +46,7 @@ class _CartState extends State<Cart> {
                     .count;
                 return CartProductItem(
                   item: item,
+                  count: count,
                   onProductPress: () {},
                   onDecrement: () {
                     context.read<CartBloc>().add(ChangeCartItemCount(
@@ -55,7 +56,6 @@ class _CartState extends State<Cart> {
                     context.read<CartBloc>().add(ChangeCartItemCount(
                         userId: user.id, productId: item.id, dir: Dir.incr));
                   },
-                  count: count, // state.cartItems.length,
                   onDeletePress: () {
                     context.read<CartBloc>().add(
                         RemoveFromCart(productId: item.id, userId: user.id));
@@ -71,6 +71,9 @@ class _CartState extends State<Cart> {
               total: state.shippingPrice + state.cartTotalPrice,
               subtotal: state.cartTotalPrice,
               shipping: state.shippingPrice,
+              onCheckout: () {
+                context.read<CartBloc>().add(ClearCart(userId: user.id));
+              },
             ),
           ],
         ),

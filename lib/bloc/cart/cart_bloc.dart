@@ -18,6 +18,8 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
     on<RemoveFromCart>(_onRemoveFromCart);
 
     on<ChangeCartItemCount>(_changeItemCount);
+
+    on<ClearCart>(_clearCart);
   }
 
   final CartRepository _cartRepository;
@@ -82,6 +84,16 @@ class CartBloc extends HydratedBloc<CartEvent, CartState> {
       emit(state.copyWith(cartItems: newItems));
       await _cartRepository.changeCartItemCount(
           event.userId, event.productId, count);
+    } catch (e) {
+      print(e);
+      emit(state.copyWith());
+    }
+  }
+
+  void _clearCart(ClearCart event, Emitter<CartState> emit) async {
+    try {
+      await _cartRepository.clearCart(event.userId);
+      emit(state.copyWith(cartItems: [], cartProducts: []));
     } catch (e) {
       print(e);
       emit(state.copyWith());

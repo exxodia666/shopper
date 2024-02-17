@@ -9,13 +9,16 @@ class CartTotal extends StatelessWidget {
       required this.subtotal,
       required this.total,
       required this.shipping,
-      required this.count})
+      required this.count,
+      required this.onCheckout})
       : super(key: key);
 
   final double subtotal;
   final double total;
   final double shipping;
   final int count;
+
+  final Function onCheckout;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +88,9 @@ class CartTotal extends StatelessWidget {
               color: CustomColors.primary,
               title: 'Checkout',
               textColor: CustomColors.white,
-              onPress: () {}),
+              onPress: () {
+                onCheckout();
+              }),
         ],
       ),
     );
