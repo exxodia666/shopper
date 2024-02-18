@@ -41,6 +41,7 @@ class OrderItem extends Equatable {
       required this.userId,
       this.status = OrderStatuses.pending,
       required this.total});
+
   final String id;
   final String userId;
   final OrderStatuses status;
