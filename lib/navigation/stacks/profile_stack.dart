@@ -7,7 +7,6 @@ import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/widgets/widgets.dart';
-import 'package:shopper/repository/authentication_repository.dart';
 import 'package:shopper/screens/profile_page/profile_page.dart';
 
 final GlobalKey<NavigatorState> _homeShellNavigatorKey =

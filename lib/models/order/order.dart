@@ -13,19 +13,42 @@ enum OrderStatuses {
   done
 }
 
+extension OrderStatusesExtension on OrderStatuses {
+  String get value {
+    switch (this) {
+      case OrderStatuses.pending:
+        return 'pending';
+      case OrderStatuses.accepted:
+        return 'accepted';
+      case OrderStatuses.declined:
+        return 'declined';
+      case OrderStatuses.cancelled:
+        return 'cancelled';
+      case OrderStatuses.awaitingShipment:
+        return 'awaitingShipment';
+      case OrderStatuses.awaitingPickup:
+        return 'awaitingPickup';
+      case OrderStatuses.done:
+        return 'done';
+    }
+  }
+}
+
 @JsonSerializable()
 class OrderItem extends Equatable {
   const OrderItem(
-      {required this.userId,
+      {required this.id,
+      required this.userId,
       this.status = OrderStatuses.pending,
       required this.total});
-
+  final String id;
   final String userId;
   final OrderStatuses status;
   final double total;
 
   OrderItem copyWith({String? userId, OrderStatuses? status, double? total}) {
     return OrderItem(
+      id: id,
       userId: userId ?? this.userId,
       total: total ?? this.total,
       status: status ?? this.status,
