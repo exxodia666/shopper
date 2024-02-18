@@ -5,6 +5,7 @@ import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/bloc/order/order_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/widgets/widgets.dart';
+import 'package:collection/collection.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -41,9 +42,10 @@ class _CartState extends State<Cart> {
               items: state.cartProducts,
               renderItem: (item) {
                 final count = state.cartItems
-                    .where((element) => element.productId == item.id)
-                    .toList()[0]
-                    .count;
+                        .firstWhereOrNull(
+                            (element) => element.productId == item.id)
+                        ?.count ??
+                    0;
                 return CartProductItem(
                   item: item,
                   count: count,
