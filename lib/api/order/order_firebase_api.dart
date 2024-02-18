@@ -15,14 +15,14 @@ class OrderFirebaseApi extends OrderApi {
   }
 
   @override
-  Future<void> createOrder(String userId, List<CartItem> cartItems) async {
+  Future<void> createOrder(
+      String userId, List<CartItem> cartItems, double total) async {
     final id = const Uuid().v4();
     final batch = db.batch();
     await db
         .collection(FirebaseDbKeys.order)
         .doc(id)
-        // todo fix hardcoded value
-        .set(OrderItem(id: id, userId: userId, total: 1000.0).toJson());
+        .set(OrderItem(id: id, userId: userId, total: total).toJson());
 
     final orderItemsRef = db.collection(FirebaseDbKeys.orderItems);
 

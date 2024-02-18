@@ -11,14 +11,12 @@ class CardResponse {
 
 class OrderRepository {
   OrderRepository({OrderApi? cartApiClient, ProductApi? productApiClient})
-      : _orderApiClient = cartApiClient ?? OrderFirebaseApi(),
-        _productApiClient = productApiClient ?? ProductFirebaseApi();
-
+      : _orderApiClient = cartApiClient ?? OrderFirebaseApi();
   final OrderApi _orderApiClient;
-  final ProductApi _productApiClient;
 
-  Future<void> createOrder(String userId, List<CartItem> cartItems) async {
-    await _orderApiClient.createOrder(userId, cartItems);
+  Future<void> createOrder(
+      String userId, List<CartItem> cartItems, double total) async {
+    await _orderApiClient.createOrder(userId, cartItems, total);
   }
 
   Future<void> cancellOrder(String id) async {

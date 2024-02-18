@@ -46,7 +46,8 @@ class OrderBloc extends HydratedBloc<OrderEvent, OrderState> {
 
   Future<void> _createOrder(CreateOrder event, Emitter<OrderState> emit) async {
     try {
-      await _orderRepository.createOrder(event.userId, event.cartItems);
+      await _orderRepository.createOrder(
+          event.userId, event.cartItems, event.total);
     } catch (e) {
       print(e);
     }

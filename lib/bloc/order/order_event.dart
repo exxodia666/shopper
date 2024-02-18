@@ -14,7 +14,9 @@ final class OrderFetch extends OrderEvent {
 }
 
 final class CreateOrder extends OrderEvent {
-  CreateOrder({required this.userId, required this.cartItems});
+  CreateOrder(
+      {required this.userId, required this.cartItems, required this.total});
+  final double total;
   final String userId;
   final List<CartItem> cartItems;
   @override

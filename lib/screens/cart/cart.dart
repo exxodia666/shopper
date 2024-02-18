@@ -74,8 +74,10 @@ class _CartState extends State<Cart> {
               subtotal: state.cartTotalPrice,
               shipping: state.shippingPrice,
               onCheckout: () {
-                context.read<OrderBloc>().add(
-                    CreateOrder(userId: user.id, cartItems: state.cartItems));
+                context.read<OrderBloc>().add(CreateOrder(
+                    userId: user.id,
+                    cartItems: state.cartItems,
+                    total: state.shippingPrice + state.cartTotalPrice));
                 context.read<CartBloc>().add(ClearCart(userId: user.id));
               },
             ),

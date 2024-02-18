@@ -5,7 +5,8 @@ abstract class OrderApi {
 
   Future<List<OrderItem>> fetchOrders(String userId);
 
-  Future<void> createOrder(String userId, List<CartItem> cartItems);
+  Future<void> createOrder(
+      String userId, List<CartItem> cartItems, double total);
 
   Future<void> cancellOrder(String orderId);
 }
