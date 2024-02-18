@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
 import 'package:shopper/cubit/auth/sign_up/sign_up_cubit.dart';
 
@@ -19,7 +19,10 @@ class SignUpForm extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Sign Up Failure')),
+              SnackBar(
+                  content: TypographyCustom.regular(
+                      text: state.errorMessage ?? 'Sign Up Failure',
+                      color: CustomColors.red)),
             );
         }
       },
@@ -44,15 +47,12 @@ class SignUpForm extends StatelessWidget {
               const Spacer(
                 flex: 2,
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 44.0),
-                child: Text(
-                  'Sign in Shopper',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontFamily: Fonts.semibold,
-                      color: CustomColors.black),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 44.0),
+                child: TypographyCustom.semiBold(
+                    text: 'Sign in Shopper',
+                    fontSize: 20.0,
+                    color: CustomColors.black),
               ),
               _EmailInput(),
               _PasswordInput(),
@@ -140,13 +140,13 @@ class _SignUpButton extends StatelessWidget {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
             : Button(
-          title: 'Sign Up',
-          color: CustomColors.primary,
-          textColor: CustomColors.white,
-          onPress: () {
-            context.read<SignUpCubit>().signUpFormSubmitted();
-          },
-        );
+                title: 'Sign Up',
+                color: CustomColors.primary,
+                textColor: CustomColors.white,
+                onPress: () {
+                  context.read<SignUpCubit>().signUpFormSubmitted();
+                },
+              );
       },
     );
   }

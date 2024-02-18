@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem(
@@ -56,20 +55,16 @@ class _ProductItemState extends State<ProductItem> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                          widget.item.title,
-                          style: const TextStyle(
-                              color: CustomColors.black,
-                              fontSize: 20,
-                              fontFamily: Fonts.medium),
+                        child: TypographyCustom.medium(
+                          text: widget.item.title,
+                          color: CustomColors.black,
+                          fontSize: 20,
                         ),
                       ),
-                      Text(
-                        widget.item.price.toString(),
-                        style: const TextStyle(
-                            color: CustomColors.placeholder,
-                            fontSize: 18,
-                            fontFamily: Fonts.medium),
+                      TypographyCustom.medium(
+                        text: widget.item.price.toString(),
+                        color: CustomColors.placeholder,
+                        fontSize: 18,
                       ),
                     ],
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/models/models.dart';
+import 'package:shopper/theme/typography.dart';
 
 class AddToCartModal extends StatefulWidget {
   final int counter;
@@ -37,19 +38,20 @@ class _AddToCartModalState extends State<AddToCartModal> {
             widget.item.image,
             fit: BoxFit.fitWidth,
           )),
-      title: Text('Add ot cart ${widget.item.title}'),
-      content: Text(
-          'Rs. ${widget.item.price}, Total Rs.${widget.item.price * widget.counter}'),
+      title: TypographyCustom.regular(text: 'Add ot cart ${widget.item.title}'),
+      content: TypographyCustom.medium(
+          text:
+              'Rs. ${widget.item.price}, Total Rs.${widget.item.price * widget.counter}'),
       titlePadding: const EdgeInsets.symmetric(horizontal: 0.0),
       actions: [
-        const Text('Count'),
+        TypographyCustom.medium(text: 'Count'),
         GestureDetector(
           onTap: () {
             widget.decrement();
           },
           child: const Icon(Icons.remove),
         ),
-        Text(widget.counter.toString()),
+        TypographyCustom.medium(text: widget.counter.toString()),
         GestureDetector(
           onTap: () {
             widget.increment();

@@ -4,7 +4,7 @@ import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -21,7 +21,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       builder: (context, state) {
         var filtered = state.getFilteredProductById(widget.id);
         if (filtered.isEmpty) {
-          return const Text('Error');
+          return TypographyCustom.medium(text: 'Error');
         } else {
           var item = filtered[0];
           return SafeArea(
@@ -50,15 +50,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                item.title,
-                                style: const TextStyle(
-                                    // height: 1.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: CustomColors.black,
-                                    fontFamily: Fonts.semibold,
-                                    fontSize: 22),
-                              ),
+                              TypographyCustom.semiBold(
+                                  text: item.title,
+                                  color: CustomColors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22)
                               // Rating(
                               //   rating: item.rating ?? 0,
                               // ),
@@ -69,29 +65,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                           height: 5,
                         ),
                         Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child: Text(
-                            item.price.toString(),
-                            style: const TextStyle(
-                                // height: 1.5,
+                            margin: const EdgeInsets.only(bottom: 8),
+                            child: TypographyCustom.medium(
+                                text: item.price.toString(),
                                 fontWeight: FontWeight.w400,
                                 color: CustomColors.lightGrey,
-                                fontFamily: Fonts.medium,
-                                fontSize: 18),
-                          ),
-                        ),
+                                fontSize: 18)),
                         Container(
-                          margin: const EdgeInsets.only(bottom: 18),
-                          child: Text(
-                            item.description,
-                            style: const TextStyle(
-                                height: 1.5,
+                            margin: const EdgeInsets.only(bottom: 18),
+                            child: TypographyCustom.medium(
+                                text: item.description,
                                 fontWeight: FontWeight.w400,
                                 color: CustomColors.lightGrey,
-                                fontFamily: Fonts.medium,
-                                fontSize: 14),
-                          ),
-                        ),
+                                fontSize: 14)),
                         Button(
                             color: item.inCart
                                 ? CustomColors.red

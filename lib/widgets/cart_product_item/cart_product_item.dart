@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 
 class CartProductItem extends StatefulWidget {
   const CartProductItem(
@@ -65,22 +65,18 @@ class _CartProductItemState extends State<CartProductItem> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.item.title,
-                        style: const TextStyle(
-                            color: CustomColors.black,
-                            fontSize: 20,
-                            fontFamily: Fonts.medium),
+                      TypographyCustom.regular(
+                        text: widget.item.title,
+                        color: CustomColors.black,
+                        fontSize: 20,
                       ),
                       const SizedBox(
                         height: 9,
                       ),
-                      Text(
-                        widget.item.price.toString(),
-                        style: const TextStyle(
-                            color: CustomColors.placeholder,
-                            fontSize: 18,
-                            fontFamily: Fonts.medium),
+                      TypographyCustom.regular(
+                        text: widget.item.price.toString(),
+                        color: CustomColors.placeholder,
+                        fontSize: 18,
                       ),
                       const Spacer(),
                       Row(
@@ -100,11 +96,13 @@ class _CartProductItemState extends State<CartProductItem> {
                                     borderRadius: BorderRadius.circular(10.0)
                                     // color: CustomColors.secondary,
                                     ),
-                                child: const Center(child: Text('-'))),
+                                child: Center(
+                                    child: TypographyCustom.medium(text: '-'))),
                           ),
                           Container(
                               margin: const EdgeInsets.only(right: 12),
-                              child: Text(widget.count.toString())),
+                              child: TypographyCustom.medium(
+                                  text: widget.count.toString())),
                           InkWell(
                             onTap: () {
                               widget.onIncrement();
@@ -120,7 +118,8 @@ class _CartProductItemState extends State<CartProductItem> {
                                     borderRadius: BorderRadius.circular(10.0)
                                     // color: CustomColors.secondary,
                                     ),
-                                child: const Center(child: Text('+'))),
+                                child: Center(
+                                    child: TypographyCustom.medium(text: '+'))),
                           ),
                         ],
                       )

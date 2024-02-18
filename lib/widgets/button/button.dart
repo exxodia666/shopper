@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 
 class Button extends StatefulWidget {
   const Button(
@@ -31,13 +31,8 @@ class _ButtonState extends State<Button> {
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
             color: widget.color, borderRadius: BorderRadius.circular(10.0)),
-        child: Text(
-          widget.title,
-          style: TextStyle(
-              fontSize: 18.0,
-              fontFamily: Fonts.semibold,
-              color: widget.textColor),
-        ),
+        child: TypographyCustom.semiBold(
+            text: widget.title, fontSize: 18.0, color: widget.textColor),
       ),
     );
   }

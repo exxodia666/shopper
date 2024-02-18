@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 
 class OrderListItem extends StatelessWidget {
   const OrderListItem(
@@ -30,31 +30,25 @@ class OrderListItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '${item.total.toString()} Rs.',
-                    style: const TextStyle(
-                        color: CustomColors.black,
-                        fontSize: 20,
-                        fontFamily: Fonts.medium),
+                  TypographyCustom.medium(
+                    text: '${item.total.toString()} Rs.',
+                    color: CustomColors.black,
+                    fontSize: 20,
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   Row(
                     children: [
-                      const Text(
-                        'Status: ',
-                        style: TextStyle(
-                            color: CustomColors.placeholder,
-                            fontSize: 18,
-                            fontFamily: Fonts.medium),
+                      TypographyCustom.medium(
+                        text: 'Status: ',
+                        color: CustomColors.placeholder,
+                        fontSize: 18,
                       ),
-                      Text(
-                        item.status.value,
-                        style: const TextStyle(
-                            color: CustomColors.primary,
-                            fontSize: 18,
-                            fontFamily: Fonts.medium),
+                      TypographyCustom.medium(
+                        text: item.status.value,
+                        color: CustomColors.primary,
+                        fontSize: 18,
                       )
                     ],
                   ),
@@ -62,7 +56,6 @@ class OrderListItem extends StatelessWidget {
               ),
             ),
             SizedBox(
-              // height: 100,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

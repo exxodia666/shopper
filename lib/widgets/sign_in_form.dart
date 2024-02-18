@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
 import 'package:shopper/navigation/routes.dart';
+import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
 import 'package:shopper/cubit/auth/cubit.dart';
 
@@ -20,7 +20,9 @@ class SignInForm extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? 'Authentication Failure'),
+                  content: TypographyCustom.regular(
+                      text: state.errorMessage ?? 'Authentication Failure',
+                      color: CustomColors.red),
                 ),
               );
           }
@@ -37,14 +39,12 @@ class SignInForm extends StatelessWidget {
               const Spacer(
                 flex: 2,
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 44.0),
-                child: Text(
-                  'Login to Shopper',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontFamily: Fonts.semibold,
-                      color: CustomColors.black),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 44.0),
+                child: TypographyCustom.semiBold(
+                  text: 'Login to Shopper',
+                  fontSize: 20.0,
+                  color: CustomColors.black,
                 ),
               ),
               _EmailInput(),
@@ -54,25 +54,22 @@ class SignInForm extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 24.0),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           color: CustomColors.lightGrey,
                           thickness: 1,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Text(
-                          'Or',
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: Fonts.regular,
-                              color: CustomColors.lightGrey),
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: TypographyCustom.regular(
+                            text: 'Or',
+                            fontSize: 14.0,
+                            color: CustomColors.lightGrey),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           color: CustomColors.lightGrey,
                           thickness: 1,
@@ -87,24 +84,18 @@ class SignInForm extends StatelessWidget {
                 child: Row(
                   children: [
                     const Spacer(),
-                    const Text(
-                      'Don’t have an account? ',
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          fontFamily: Fonts.medium,
-                          color: CustomColors.lightGrey),
-                    ),
+                    TypographyCustom.medium(
+                        text: 'Don’t have an account? ',
+                        fontSize: 14.0,
+                        color: CustomColors.lightGrey),
                     InkWell(
                         onTap: () {
                           navigateTo(context, Routes.signUp);
                         },
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: Fonts.medium,
-                              color: CustomColors.primary),
-                        )),
+                        child: TypographyCustom.medium(
+                            text: 'Sign Up',
+                            fontSize: 14.0,
+                            color: CustomColors.primary)),
                     const Spacer(),
                   ],
                 ),

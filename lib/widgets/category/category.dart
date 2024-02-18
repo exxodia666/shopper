@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shopper/theme/colors.dart';
+import 'package:shopper/theme/typography.dart';
 
 class Category extends StatelessWidget {
   const Category({Key? key}) : super(key: key);
@@ -12,17 +13,13 @@ class Category extends StatelessWidget {
       decoration: BoxDecoration(
           color: CustomColors.primary,
           borderRadius: BorderRadius.circular(16.0)),
-      child: const Padding(
-        padding: EdgeInsets.only(top: 28, left: 24),
-        child: Text(
-          'women',
-          style: TextStyle(
-            letterSpacing: -1,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 28, left: 24),
+        child: TypographyCustom.medium(
+            text: 'women',
             color: CustomColors.white,
             fontSize: 26,
-            fontWeight: FontWeight.w600
-          ),
-        ),
+            fontWeight: FontWeight.w600),
       ),
     );
   }

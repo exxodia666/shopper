@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
 import 'package:shopper/models/models.dart';
 
@@ -48,10 +48,9 @@ class _CategoryProductsState extends State<CategoryProducts> {
         bottomOpacity: 0.0,
         elevation: 0.0,
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Apparel',
-          style:
-              TextStyle(color: CustomColors.black, fontFamily: Fonts.regular),
+        title: TypographyCustom.medium(
+          text: 'Apparel',
+          color: CustomColors.black,
         ),
       ),
       extendBody: true,

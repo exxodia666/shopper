@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 
 class GridProductItem extends StatelessWidget {
   const GridProductItem(
@@ -71,23 +71,19 @@ class GridProductItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      item.title,
-                      style: const TextStyle(
-                          color: CustomColors.black,
-                          fontSize: 16,
-                          fontFamily: Fonts.medium),
+                    TypographyCustom.medium(
+                      text: item.title,
+                      color: CustomColors.black,
+                      fontSize: 16,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      item.price.toString(),
-                      style: const TextStyle(
-                          color: CustomColors.placeholder,
-                          fontSize: 14,
-                          fontFamily: Fonts.medium),
+                    TypographyCustom.medium(
+                      text: item.price.toString(),
+                      color: CustomColors.placeholder,
+                      fontSize: 14,
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/theme/fonts.dart';
+import 'package:shopper/theme/typography.dart';
 
 class FavoriteProductItem extends StatefulWidget {
   const FavoriteProductItem(
@@ -56,22 +56,18 @@ class _FavoriteProductItemState extends State<FavoriteProductItem> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.item.title,
-                        style: const TextStyle(
-                            color: CustomColors.black,
-                            fontSize: 20,
-                            fontFamily: Fonts.medium),
+                      TypographyCustom.medium(
+                        text: widget.item.title,
+                        color: CustomColors.black,
+                        fontSize: 20,
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        widget.item.price.toString(),
-                        style: const TextStyle(
-                            color: CustomColors.placeholder,
-                            fontSize: 18,
-                            fontFamily: Fonts.medium),
+                      TypographyCustom.medium(
+                        text: widget.item.price.toString(),
+                        color: CustomColors.placeholder,
+                        fontSize: 18,
                       ),
                     ],
                   ),

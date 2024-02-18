@@ -22,7 +22,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
     return BlocBuilder<OrderBloc, OrderState>(
       builder: (context, state) {
@@ -41,7 +40,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     fit: BoxFit.fitWidth,
                   )),
               const SizedBox(height: 4),
-              Text(user.email ?? '', style: textTheme.titleLarge),
+              TypographyCustom.medium(
+                text: user.email ?? '',
+                fontSize: 20,
+              ),
               const SizedBox(height: 4),
               if (state.orderItems.isNotEmpty)
                 SizedBox(
