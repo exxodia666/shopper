@@ -16,16 +16,19 @@ enum OrderStatuses {
 @JsonSerializable()
 class OrderItem extends Equatable {
   const OrderItem(
-      {required this.userId,
+      {required this.id,
+      required this.userId,
       this.status = OrderStatuses.pending,
       required this.total});
 
+  final String id;
   final String userId;
   final OrderStatuses status;
   final double total;
 
   OrderItem copyWith({String? userId, OrderStatuses? status, double? total}) {
     return OrderItem(
+      id: id,
       userId: userId ?? this.userId,
       total: total ?? this.total,
       status: status ?? this.status,
