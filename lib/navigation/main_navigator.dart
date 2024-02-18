@@ -91,9 +91,7 @@ class _MainNavigatorState extends State<MainNavigator> {
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(),
         routerConfig:
             authStatus == AppStatus.unauthenticated ? _authRouter : _router,
         // routes: {

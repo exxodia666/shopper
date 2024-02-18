@@ -56,11 +56,6 @@ class _AddToCartModalState extends State<AddToCartModal> {
           },
           child: const Icon(Icons.add),
         ),
-        // Button(
-        //     color: Colors.green,
-        //     title: 'Add',
-        //     textColor: Colors.black,
-        //     onPress: () {})
       ],
     );
   }

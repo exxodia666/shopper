@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/favorite/favorite_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
+import 'package:shopper/theme/colors.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class Favorites extends StatefulWidget {
@@ -27,7 +28,7 @@ class _FavoritesState extends State<Favorites> {
       if (state.status == FavoriteStatus.initial) {
         const Center(
           child: CircularProgressIndicator(
-            color: Colors.black,
+            color: CustomColors.primary,
           ),
         );
       }

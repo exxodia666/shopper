@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
@@ -10,10 +9,9 @@ class Rating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 60,
       height: 36,
-      // decoration: const BoxDecoration(color: CustomColors.lightGrey),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -21,7 +19,6 @@ class Rating extends StatelessWidget {
             Text(
               '${rating.toString()}/5',
               style: const TextStyle(
-                  // backgroundColor: Colors.red,
                   letterSpacing: -1,
                   color: CustomColors.primary,
                   fontFamily: Fonts.semibold,

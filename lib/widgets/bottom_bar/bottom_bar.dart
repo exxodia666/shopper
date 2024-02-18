@@ -43,7 +43,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       elevation: 0,
-      color: Colors.transparent,
+      color: CustomColors.transparent,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 24.0),
         alignment: Alignment.center,
@@ -53,14 +53,12 @@ class _BottomBarState extends State<BottomBar> {
             borderRadius: BorderRadius.circular(44.0),
             boxShadow: const [
               BoxShadow(
-                  //TODO Move to colors
-                  color: Color.fromRGBO(12, 26, 75, 0.24),
+                  color: CustomColors.primaryShadow,
                   spreadRadius: 0.1,
                   blurRadius: 0.1)
             ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //TODO COLORS AND custom icons
           children: buildList(widget.selectedRoute),
         ),
       ),

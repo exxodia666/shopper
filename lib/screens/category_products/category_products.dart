@@ -44,7 +44,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: CustomColors.transparent,
         bottomOpacity: 0.0,
         elevation: 0.0,
         automaticallyImplyLeading: false,
@@ -61,11 +61,6 @@ class _CategoryProductsState extends State<CategoryProducts> {
           return ProductItem(item: item, onProductPress: () {});
         },
       ),
-      // bottomNavigationBar: const BottomAppBar(
-      //   elevation: 0,
-      //   color: Colors.transparent,
-      //   child: BottomBar(),
-      // ),
     );
   }
 }

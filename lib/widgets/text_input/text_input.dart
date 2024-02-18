@@ -32,10 +32,9 @@ class _TextInputState extends State<TextInput> {
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color: Colors.white,
+            color: CustomColors.white,
             boxShadow: const [
-              BoxShadow(
-                  color: Color.fromRGBO(12, 26, 74, 0.24), spreadRadius: 1),
+              BoxShadow(color: CustomColors.primaryShadow, spreadRadius: 1),
             ],
           ),
           child: Row(

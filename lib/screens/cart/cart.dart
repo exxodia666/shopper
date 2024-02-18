@@ -4,6 +4,7 @@ import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/bloc/order/order_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
+import 'package:shopper/theme/colors.dart';
 import 'package:shopper/widgets/widgets.dart';
 import 'package:collection/collection.dart';
 
@@ -29,7 +30,7 @@ class _CartState extends State<Cart> {
       if (state.status == CartStatus.isLoading) {
         const Center(
           child: CircularProgressIndicator(
-            color: Colors.black,
+            color: CustomColors.primary,
           ),
         );
       }

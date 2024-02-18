@@ -30,8 +30,7 @@ class _ProductItemState extends State<ProductItem> {
             borderRadius: BorderRadius.circular(20.0),
             boxShadow: const [
               BoxShadow(
-                  //TODO Move to colors
-                  color: Color.fromRGBO(12, 26, 75, 0.24),
+                  color: CustomColors.primaryShadow,
                   spreadRadius: 0.1,
                   blurRadius: 0.1)
             ]),
