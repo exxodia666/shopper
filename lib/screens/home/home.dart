@@ -26,8 +26,8 @@ class _HomeState extends State<Home> {
     getProducts();
   }
 
-  void onProductPress() {
-    navigateTo(context, Routes.details);
+  void onProductPress(String id) {
+    navigateTo(context, Routes.details, id: id);
   }
 
   void onCartPress(Product item, String userId) {
@@ -54,13 +54,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductListBloc, ProductListState>(
         builder: (context, state) {
-      if (state.status == ProductListStatus.initial) {
-        return const Center(
-          child: CircularProgressIndicator(
-            color: Colors.black,
-          ),
-        );
-      }
       return Center(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
@@ -69,6 +62,7 @@ class _HomeState extends State<Home> {
               Column(
                 children: [
                   GridProductList(
+                    isLoading: state.status == ProductListStatus.isLoading,
                     items: state.products,
                     onFavoritePress: onFavoritePress,
                     onCartPress: onCartPress,
@@ -84,10 +78,3 @@ class _HomeState extends State<Home> {
     });
   }
 }
-
-// Change GridProductList top to 60 if there is SearchBar
-// Positioned(
-//     top: 10,
-//     width: MediaQuery.of(context).size.width * 0.9,
-//     child: const CustomSearchBar()
-// ),

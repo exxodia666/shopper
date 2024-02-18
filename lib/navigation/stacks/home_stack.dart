@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shopper/app/bloc/app_bloc.dart';
+import 'package:shopper/bloc/favorite/favorite_bloc.dart';
+import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/navigation/header.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
@@ -48,18 +52,39 @@ GoRoute homeStack = GoRoute(
       ],
     ),
     ShellRoute(
-        builder: (BuildContext context, GoRouterState state, Widget child) {
+        builder:
+            (BuildContext context, GoRouterState goRouterState, Widget child) {
           return CustomScaffold(
             header: CustomHeader(
               actions: [
-                InkWell(
-                    onTap: () {
-                      switchTab(context, Routes.cart);
-                    },
-                    child: const Icon(
-                      Icons.shopping_cart_rounded,
-                      color: CustomColors.black,
-                    )),
+                BlocBuilder<ProductListBloc, ProductListState>(
+                  builder: (context, state) {
+                    final id = goRouterState.pathParameters['id'] ?? '';
+                    final user = context.read<AppBloc>().state.user;
+                    final filtered = state.getFilteredProductById(id);
+                    final isFavorite =
+                        filtered.isEmpty ? false : filtered[0].isFavorite;
+                    return InkWell(
+                        onTap: () {
+                          context.read<FavoriteBloc>().add(isFavorite
+                              ? RemoveFromFavorite(
+                                  userId: user.id, productId: id)
+                              : AddToFavorite(userId: user.id, productId: id));
+                          context
+                              .read<ProductListBloc>()
+                              .add(ProductListFetch(userId: user.id));
+                        },
+                        child: isFavorite
+                            ? const Icon(
+                                Icons.favorite,
+                                color: CustomColors.red,
+                              )
+                            : const Icon(
+                                Icons.favorite_border,
+                                color: CustomColors.black,
+                              ));
+                  },
+                ),
                 const SizedBox(
                   width: 20,
                 ),
@@ -76,9 +101,9 @@ GoRoute homeStack = GoRoute(
             },
           ),
           GoRoute(
-            path: Routes.details,
+            path: '${Routes.details}/:id',
             builder: (BuildContext context, GoRouterState state) {
-              return const ProductDetails();
+              return ProductDetails(id: state.pathParameters['id'] ?? '');
             },
           ),
         ])

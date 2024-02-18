@@ -26,6 +26,10 @@ final class ProductListState extends Equatable {
     );
   }
 
+  List<Product> getFilteredProductById(String id) {
+    return products.where((element) => element.id == id).toList();
+  }
+
   factory ProductListState.fromJson(Map<String, dynamic> json) =>
       _$ProductListStateFromJson(json);
 
