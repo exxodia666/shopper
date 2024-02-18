@@ -16,34 +16,30 @@ final GlobalKey<NavigatorState> _homeShellNavigatorKey =
 GoRoute profileStack = GoRoute(
   path: Routes.profile,
   builder: (BuildContext context, GoRouterState state) {
-    var authRepository = context.read<AuthenticationRepository>();
-    return BlocProvider(
-      create: (_) => AppBloc(authenticationRepository: authRepository),
-      child: CustomScaffold(
-          bottomAppBar: BottomBar(
-            selectedRoute: GoRouter.of(context).location,
-          ),
-          header: CustomHeader(
-            title: 'Profile',
-            backBtn: false,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: InkWell(
-                  // key: const Key('ProfilePage_logout_iconButton'),
-                  child: const Icon(
-                    Icons.exit_to_app,
-                    color: CustomColors.black,
-                  ),
-                  onTap: () {
-                    context.read<AppBloc>().add(const AppLogoutRequested());
-                  },
+    return CustomScaffold(
+        bottomAppBar: BottomBar(
+          selectedRoute: GoRouter.of(context).location,
+        ),
+        header: CustomHeader(
+          title: 'Profile',
+          backBtn: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: InkWell(
+                // key: const Key('ProfilePage_logout_iconButton'),
+                child: const Icon(
+                  Icons.exit_to_app,
+                  color: CustomColors.black,
                 ),
-              )
-            ],
-          ),
-          child: const ProfilePage()),
-    );
+                onTap: () {
+                  context.read<AppBloc>().add(const AppLogoutRequested());
+                },
+              ),
+            )
+          ],
+        ),
+        child: const ProfilePage());
   },
   routes: [
     // ShellRoute(
