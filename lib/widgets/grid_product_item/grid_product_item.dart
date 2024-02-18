@@ -3,7 +3,7 @@ import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/fonts.dart';
 
-class GridProductItem extends StatefulWidget {
+class GridProductItem extends StatelessWidget {
   const GridProductItem(
       {Key? key,
       required this.item,
@@ -18,11 +18,6 @@ class GridProductItem extends StatefulWidget {
   final Function onCartPress;
 
   @override
-  State<GridProductItem> createState() => _GridProductItemState();
-}
-
-class _GridProductItemState extends State<GridProductItem> {
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -31,12 +26,12 @@ class _GridProductItemState extends State<GridProductItem> {
           children: [
             InkWell(
               onTap: () {
-                widget.onProductPress();
+                onProductPress();
               },
               child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                   child: Image.network(
-                    widget.item.image,
+                    item.image,
                     fit: BoxFit.fitWidth,
                   )),
             ),
@@ -45,7 +40,7 @@ class _GridProductItemState extends State<GridProductItem> {
                 right: 5,
                 child: GestureDetector(
                   onTap: () {
-                    widget.onFavoritePress();
+                    onFavoritePress();
                   },
                   child: Container(
                     width: 36.0,
@@ -54,7 +49,7 @@ class _GridProductItemState extends State<GridProductItem> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(18.0)),
                     //
-                    child: widget.item.isFavorite
+                    child: item.isFavorite
                         ? const Icon(
                             Icons.favorite,
                             color: Colors.red,
@@ -73,14 +68,14 @@ class _GridProductItemState extends State<GridProductItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.item.title,
+                    item.title,
                     style: const TextStyle(
                         color: CustomColors.black,
                         fontSize: 16,
                         fontFamily: Fonts.medium),
                   ),
                   Text(
-                    widget.item.price.toString(),
+                    item.price.toString(),
                     style: const TextStyle(
                         color: CustomColors.placeholder,
                         fontSize: 14,
@@ -91,9 +86,9 @@ class _GridProductItemState extends State<GridProductItem> {
               InkWell(
                 customBorder: Border.all(color: CustomColors.black, width: 1),
                 onTap: () {
-                  widget.onCartPress();
+                  onCartPress();
                 },
-                child: widget.item.inCart
+                child: item.inCart
                     ? const Icon(
                         Icons.remove_shopping_cart_rounded,
                         color: Colors.red,

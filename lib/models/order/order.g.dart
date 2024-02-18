@@ -7,6 +7,7 @@ part of 'order.dart';
 // **************************************************************************
 
 OrderItem _$OrderItemFromJson(Map<String, dynamic> json) => OrderItem(
+      id: json['id'] as String,
       userId: json['userId'] as String,
       status: $enumDecodeNullable(_$OrderStatusesEnumMap, json['status']) ??
           OrderStatuses.pending,
@@ -14,6 +15,7 @@ OrderItem _$OrderItemFromJson(Map<String, dynamic> json) => OrderItem(
     );
 
 Map<String, dynamic> _$OrderItemToJson(OrderItem instance) => <String, dynamic>{
+      'id': instance.id,
       'userId': instance.userId,
       'status': _$OrderStatusesEnumMap[instance.status]!,
       'total': instance.total,

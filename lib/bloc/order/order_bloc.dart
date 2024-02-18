@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shopper/models/models.dart';
-import 'package:shopper/models/order/order.dart';
 import 'package:shopper/repository/order_repository.dart';
 
 part 'order_event.dart';
@@ -30,9 +29,17 @@ class OrderBloc extends HydratedBloc<OrderEvent, OrderState> {
 
   Future<void> _cancellOrder(
       CancellOrder event, Emitter<OrderState> emit) async {
+    final prevState = state.copyWith();
     try {
-      await _orderRepository.cancellOrder('');
+      emit(state.copyWith(
+          orderItems: state.orderItems
+              .map((e) => e.id == event.id
+                  ? e.copyWith(status: OrderStatuses.cancelled)
+                  : e.copyWith())
+              .toList()));
+      await _orderRepository.cancellOrder(event.id);
     } catch (e) {
+      emit(prevState);
       print(e);
     }
   }

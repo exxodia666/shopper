@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
@@ -28,7 +27,7 @@ class _CartState extends State<Cart> {
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       if (state.status == CartStatus.isLoading) {
         const Center(
-          child: CupertinoActivityIndicator(
+          child: CircularProgressIndicator(
             color: Colors.black,
           ),
         );

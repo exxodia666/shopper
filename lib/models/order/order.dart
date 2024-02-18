@@ -13,6 +13,27 @@ enum OrderStatuses {
   done
 }
 
+extension OrderStatusesExtension on OrderStatuses {
+  String get value {
+    switch (this) {
+      case OrderStatuses.pending:
+        return 'pending';
+      case OrderStatuses.accepted:
+        return 'accepted';
+      case OrderStatuses.declined:
+        return 'declined';
+      case OrderStatuses.cancelled:
+        return 'cancelled';
+      case OrderStatuses.awaitingShipment:
+        return 'awaitingShipment';
+      case OrderStatuses.awaitingPickup:
+        return 'awaitingPickup';
+      case OrderStatuses.done:
+        return 'done';
+    }
+  }
+}
+
 @JsonSerializable()
 class OrderItem extends Equatable {
   const OrderItem(

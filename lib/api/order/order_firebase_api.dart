@@ -9,7 +9,10 @@ class OrderFirebaseApi extends OrderApi {
   final db = FirebaseFirestore.instance;
 
   @override
-  Future<void> cancellOrder(String orderId) async {}
+  Future<void> cancellOrder(String orderId) async {
+    await db.collection(FirebaseDbKeys.order).doc(orderId).set(
+        {'status': OrderStatuses.cancelled.value}, SetOptions(merge: true));
+  }
 
   @override
   Future<void> createOrder(String userId, List<CartItem> cartItems) async {
@@ -18,14 +21,14 @@ class OrderFirebaseApi extends OrderApi {
     await db
         .collection(FirebaseDbKeys.order)
         .doc(id)
-        .set(OrderItem(userId: userId, total: 1000.0).toJson());
+        // todo fix hardcoded value
+        .set(OrderItem(id: id, userId: userId, total: 1000.0).toJson());
 
     final orderItemsRef = db.collection(FirebaseDbKeys.orderItems);
 
     for (var cartItem in cartItems) {
-      // fix cart item ids collissions
-      batch.set(orderItemsRef.doc('${cartItem.userId}${cartItem.productId}'),
-          cartItem.toJson());
+      batch.set(
+          orderItemsRef.doc('$id${cartItem.productId}'), cartItem.toJson());
     }
     return batch.commit();
   }

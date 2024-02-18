@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
@@ -27,7 +26,7 @@ class _FavoritesState extends State<Favorites> {
     return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
       if (state.status == FavoriteStatus.initial) {
         const Center(
-          child: CupertinoActivityIndicator(
+          child: CircularProgressIndicator(
             color: Colors.black,
           ),
         );
