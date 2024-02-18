@@ -21,19 +21,22 @@ class GridProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Todo image loader (skeleton loading)
         Stack(
           children: [
             InkWell(
               onTap: () {
                 onProductPress();
               },
-              child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                  child: Image.network(
-                    item.image,
-                    fit: BoxFit.fitWidth,
-                  )),
+              child: Container(
+                child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                    child: Image.network(
+                      item.image,
+                      fit: BoxFit.fitHeight,
+                      width: double.infinity,
+                      height: 160,
+                    )),
+              ),
             ),
             Positioned(
                 top: 5,
@@ -46,13 +49,13 @@ class GridProductItem extends StatelessWidget {
                     width: 36.0,
                     height: 36.0,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: CustomColors.white,
                         borderRadius: BorderRadius.circular(18.0)),
                     //
                     child: item.isFavorite
                         ? const Icon(
                             Icons.favorite,
-                            color: Colors.red,
+                            color: CustomColors.red,
                           )
                         : const Icon(Icons.favorite_border),
                   ),
@@ -64,24 +67,30 @@ class GridProductItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
-                    style: const TextStyle(
-                        color: CustomColors.black,
-                        fontSize: 16,
-                        fontFamily: Fonts.medium),
-                  ),
-                  Text(
-                    item.price.toString(),
-                    style: const TextStyle(
-                        color: CustomColors.placeholder,
-                        fontSize: 14,
-                        fontFamily: Fonts.medium),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.title,
+                      style: const TextStyle(
+                          color: CustomColors.black,
+                          fontSize: 16,
+                          fontFamily: Fonts.medium),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      item.price.toString(),
+                      style: const TextStyle(
+                          color: CustomColors.placeholder,
+                          fontSize: 14,
+                          fontFamily: Fonts.medium),
+                    ),
+                  ],
+                ),
               ),
               InkWell(
                 customBorder: Border.all(color: CustomColors.black, width: 1),
@@ -90,17 +99,17 @@ class GridProductItem extends StatelessWidget {
                 },
                 child: item.inCart
                     ? const Icon(
-                        Icons.remove_shopping_cart_rounded,
-                        color: Colors.red,
+                        Icons.shopping_cart,
+                        color: CustomColors.green,
                       )
                     : const Icon(
-                        Icons.shopping_cart_rounded,
-                        color: Colors.green,
+                        Icons.add_shopping_cart,
+                        color: CustomColors.black,
                       ),
               )
             ],
           ),
-        )
+        ),
       ],
     );
   }
