@@ -9,7 +9,8 @@ class TypographyCustom {
       double? fontSize,
       Color? color,
       FontWeight? fontWeight,
-      TextOverflow? overflow}) {
+      TextOverflow? overflow,
+      double? height}) {
     return Text(
       text,
       style: TextStyle(
@@ -17,7 +18,8 @@ class TypographyCustom {
           fontWeight: fontWeight,
           fontSize: fontSize ?? 16,
           color: color ?? CustomColors.black,
-          overflow: overflow),
+          overflow: overflow,
+          height: height),
     );
   }
 
@@ -26,7 +28,8 @@ class TypographyCustom {
       double? fontSize,
       Color? color,
       FontWeight? fontWeight,
-      TextOverflow? overflow}) {
+      TextOverflow? overflow,
+      double? height}) {
     return Text(
       text,
       style: TextStyle(
@@ -34,7 +37,8 @@ class TypographyCustom {
           fontWeight: fontWeight,
           fontSize: fontSize ?? 16,
           color: color ?? CustomColors.black,
-          overflow: overflow),
+          overflow: overflow,
+          height: height),
     );
   }
 

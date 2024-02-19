@@ -8,19 +8,25 @@ import 'package:shopper/bloc/order/order_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/cubit/cart_product_count/cart_product_count_cubit.dart';
 import 'package:shopper/navigation/routes.dart';
+import 'package:shopper/navigation/scaffold.dart';
 import 'package:shopper/navigation/stacks/auth_stack.dart';
 import 'package:shopper/navigation/stacks/favorite_stack.dart';
 import 'package:shopper/navigation/stacks/home_stack.dart';
-import 'package:shopper/navigation/stacks/order_stack.dart';
 import 'package:shopper/navigation/stacks/profile_stack.dart';
+// import 'package:shopper/navigation/stacks/favorite_stack.dart';
+// import 'package:shopper/navigation/stacks/home_stack.dart';
+// import 'package:shopper/navigation/stacks/order_stack.dart';
+// import 'package:shopper/navigation/stacks/profile_stack.dart';
 import 'package:shopper/repository/cart_repository.dart';
 import 'package:shopper/repository/favorite_repository.dart';
 import 'package:shopper/repository/order_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
+import 'package:shopper/widgets/bottom_bar/bottom_bar.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
+import 'stacks/order_stack.dart';
+
+final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
-// final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 
 final GlobalKey<NavigatorState> _authNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'auth');
@@ -34,21 +40,28 @@ class MainNavigator extends StatefulWidget {
 class _MainNavigatorState extends State<MainNavigator> {
   final auth = true;
   final GoRouter _router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     initialLocation: Routes.home,
     debugLogDiagnostics: true,
     routes: <RouteBase>[
-      /// The first screen to display in the bottom navigation bar.
-      homeStack,
+      StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) {
+            void goBranch(int index) {
+              navigationShell.goBranch(
+                index,
+                initialLocation: index == navigationShell.currentIndex,
+              );
+            }
 
-      /// Displayed when the second item in the the bottom navigation bar is selected.
-      favoritesStack,
-
-      /// The third screen to display in the bottom nwavigation bar.
-      orderStack,
-
-      /// The third screen to display in the bottom nwavigation bar.
-      profileStack,
+            return CustomScaffold(
+              bottomAppBar: BottomBar(
+                selectedIndex: navigationShell.currentIndex,
+                setSelectedIndex: goBranch,
+              ),
+              child: navigationShell,
+            );
+          },
+          branches: [homeBranch, favoriteBranch, orderBranch, profileBranch])
     ],
   );
 

@@ -1,40 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/theme/colors.dart';
 
 import '../bottom_bar_button/bottom_bar_button.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key, required this.selectedRoute}) : super(key: key);
+  const BottomBar(
+      {Key? key, required this.selectedIndex, required this.setSelectedIndex})
+      : super(key: key);
 
-  final String selectedRoute;
+  final int selectedIndex;
+  final Function(int) setSelectedIndex;
 
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  List<Widget> buildList(String selectedRoute) {
+  List<Widget> buildList() {
     return [
       BottomBarButton(
-        selectedRoute: selectedRoute,
-        route: Routes.home,
+        selectedIndex: widget.selectedIndex,
+        index: 0,
         icon: Icons.home,
+        onPress: widget.setSelectedIndex,
       ),
       BottomBarButton(
-        selectedRoute: selectedRoute,
-        route: Routes.favorites,
+        selectedIndex: widget.selectedIndex,
+        index: 1,
         icon: Icons.favorite_outline_rounded,
+        onPress: widget.setSelectedIndex,
       ),
       BottomBarButton(
-        selectedRoute: selectedRoute,
-        route: Routes.cart,
+        selectedIndex: widget.selectedIndex,
+        index: 2,
         icon: Icons.shopping_cart_rounded,
+        onPress: widget.setSelectedIndex,
       ),
       BottomBarButton(
-        selectedRoute: selectedRoute,
-        route: Routes.profile,
+        selectedIndex: widget.selectedIndex,
+        index: 3,
         icon: Icons.person_4_outlined,
+        onPress: widget.setSelectedIndex,
       ),
     ];
   }
@@ -59,7 +65,7 @@ class _BottomBarState extends State<BottomBar> {
             ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: buildList(widget.selectedRoute),
+          children: buildList(),
         ),
       ),
     );

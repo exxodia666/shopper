@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/favorite/favorite_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
+import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/widgets/widgets.dart';
 
@@ -19,6 +20,10 @@ class _FavoritesState extends State<Favorites> {
     var user = context.read<AppBloc>().state.user;
     context.read<FavoriteBloc>().add(FavoriteProductFetch(userId: user.id));
     super.initState();
+  }
+
+  void onProductPress(String id) {
+    navigateTo(context, Routes.details, id: id);
   }
 
   @override
@@ -40,7 +45,9 @@ class _FavoritesState extends State<Favorites> {
           renderItem: (item) {
             return FavoriteProductItem(
               item: item,
-              onProductPress: () {},
+              onProductPress: () {
+                onProductPress(item.id);
+              },
               onDeletePress: () {
                 context.read<FavoriteBloc>().add(
                     RemoveFromFavorite(productId: item.id, userId: user.id));

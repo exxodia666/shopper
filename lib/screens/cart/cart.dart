@@ -4,6 +4,7 @@ import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/bloc/order/order_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
+import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/widgets/widgets.dart';
 import 'package:collection/collection.dart';
@@ -21,6 +22,10 @@ class _CartState extends State<Cart> {
     super.initState();
     var user = context.read<AppBloc>().state.user;
     context.read<CartBloc>().add(CartFetch(userId: user.id));
+  }
+
+  void onProductPress(String id) {
+    navigateTo(context, Routes.details, id: id);
   }
 
   @override
@@ -50,7 +55,9 @@ class _CartState extends State<Cart> {
                 return CartProductItem(
                   item: item,
                   count: count,
-                  onProductPress: () {},
+                  onProductPress: () {
+                    onProductPress(item.id);
+                  },
                   onDecrement: () {
                     context.read<CartBloc>().add(ChangeCartItemCount(
                         userId: user.id, productId: item.id, dir: Dir.decr));
