@@ -8,7 +8,6 @@ import 'package:shopper/navigation/header.dart';
 import 'package:shopper/navigation/main_navigator.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
-import 'package:shopper/repository/favorite_repository.dart';
 import 'package:shopper/screens/Favourites/favorites.dart';
 import 'package:shopper/screens/product_details/product_details.dart';
 import 'package:shopper/theme/colors.dart';

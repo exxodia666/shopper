@@ -6,7 +6,6 @@ import 'package:shopper/navigation/header.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
 import 'package:shopper/theme/colors.dart';
-import 'package:shopper/widgets/widgets.dart';
 import 'package:shopper/screens/profile_page/profile_page.dart';
 
 final GlobalKey<NavigatorState> _profileShellNavigatorKey =
@@ -26,7 +25,6 @@ StatefulShellBranch profileBranch = StatefulShellBranch(
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: InkWell(
-                    // key: const Key('ProfilePage_logout_iconButton'),
                     child: const Icon(
                       Icons.exit_to_app,
                       color: CustomColors.black,
@@ -40,12 +38,7 @@ StatefulShellBranch profileBranch = StatefulShellBranch(
             ),
             child: const ProfilePage()),
       ),
-      routes: const [
-        // GoRoute(
-        //   path: 'details',
-        //   builder: (context, state) => const DetailsScreen(label: 'A'),
-        // ),
-      ],
+      routes: const [],
     ),
   ],
 );
