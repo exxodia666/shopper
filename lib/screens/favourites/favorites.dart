@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/favorite/favorite_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
@@ -17,9 +18,21 @@ class Favorites extends StatefulWidget {
 class _FavoritesState extends State<Favorites> {
   @override
   void initState() {
+    super.initState();
+  }
+
+  void getFavorites() {
     var user = context.read<AppBloc>().state.user;
     context.read<FavoriteBloc>().add(FavoriteProductFetch(userId: user.id));
-    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    String currentLocation = GoRouter.of(context).location;
+    if (currentLocation == Routes.favorites) {
+      getFavorites();
+    }
   }
 
   void onProductPress(String id) {
