@@ -27,16 +27,14 @@ class GridProductItem extends StatelessWidget {
               onTap: () {
                 onProductPress();
               },
-              child: Container(
-                child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                    child: Image.network(
-                      item.image,
-                      fit: BoxFit.fitHeight,
-                      width: double.infinity,
-                      height: 160,
-                    )),
-              ),
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                  child: Image.network(
+                    item.image,
+                    fit: BoxFit.fitHeight,
+                    width: double.infinity,
+                    height: 160,
+                  )),
             ),
             Positioned(
                 top: 5,
