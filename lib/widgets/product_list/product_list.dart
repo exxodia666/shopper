@@ -24,16 +24,7 @@ class _ProductListState extends State<ProductList> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 0.0),
       child: ListView.builder(
-        // scrollDirection: Axis.vertical,
-        // shrinkWrap: true,
-        // padding: const EdgeInsets.symmetric(
-        //   horizontal: 24.0,
-        //   vertical: 10,
-        // ),
-        // Let the ListView know how many items it needs to build.
         itemCount: widget.items.length,
-        // Provide a builder function. This is where the magic happens.
-        // Convert each item into a widget based on the type of item it is.
         itemBuilder: (context, index) {
           final item = widget.items[index];
           return widget.renderItem(item);
