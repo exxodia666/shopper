@@ -7,6 +7,8 @@ import 'package:shopper/bloc/favorite/favorite_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/navigation/routes.dart';
+import 'package:shopper/theme/colors.dart';
+import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
 
 class Home extends StatefulWidget {
@@ -46,7 +48,64 @@ class _HomeState extends State<Home> {
     context
         .read<ProductListBloc>()
         .add(ChangeProduct(productId: item.id, inCart: !item.inCart));
-    if (!item.inCart) switchTab(context, Routes.cart);
+    if (!item.inCart) {
+      showModalBottomSheet<void>(
+        useRootNavigator: true,
+        barrierColor: Colors.transparent,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            decoration: const BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: CustomColors.primaryShadow,
+                    spreadRadius: 0.5,
+                    blurRadius: 0.1)
+              ],
+              color: CustomColors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            height: 200,
+            // color: CustomColors.white,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    alignment: AlignmentDirectional.center,
+                    child: TypographyCustom.semiBold(
+                        fontSize: 18,
+                        text: 'Would you like to continue shopping?'),
+                  ),
+                  const Divider(height: 15.0),
+                  Button(
+                    color: CustomColors.primary,
+                    title: 'Continue',
+                    textColor: Colors.white,
+                    onPress: () => Navigator.pop(context),
+                  ),
+                  const Divider(
+                    height: 10,
+                  ),
+                  Button(
+                      color: CustomColors.primary,
+                      title: 'Open cart',
+                      textColor: Colors.white,
+                      onPress: () {
+                        Navigator.pop(context);
+                        switchTab(context, Routes.cart);
+                      }),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
   }
 
   void onFavoritePress(Product item, userId) {
