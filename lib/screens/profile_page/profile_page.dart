@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/order/order_bloc.dart';
 import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
+
+import '../../navigation/routes.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -16,8 +19,20 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void getOrders() {
     final user = context.read<AppBloc>().state.user;
     context.read<OrderBloc>().add(OrderFetch(userId: user.id));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    String currentLocation = GoRouter.of(context).location;
+    if (currentLocation == Routes.profile) {
+      getOrders();
+    }
   }
 
   @override

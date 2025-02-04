@@ -1,9 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopper/api/firebase/firebase.dart';
 import 'package:shopper/models/models.dart';
 import 'package:uuid/uuid.dart';
 
 import 'order_api.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OrderFirebaseApi extends OrderApi {
   final db = FirebaseFirestore.instance;
