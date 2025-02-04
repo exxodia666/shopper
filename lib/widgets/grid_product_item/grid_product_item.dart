@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/typography.dart';
+import 'package:shopper/widgets/animated_heart/animated_heart.dart';
 
-class GridProductItem extends StatelessWidget {
+class GridProductItem extends StatefulWidget {
   const GridProductItem(
       {Key? key,
       required this.item,
@@ -18,6 +19,16 @@ class GridProductItem extends StatelessWidget {
   final Function onCartPress;
 
   @override
+  State<GridProductItem> createState() => _GridProductItemState();
+}
+
+class _GridProductItemState extends State<GridProductItem> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -25,12 +36,12 @@ class GridProductItem extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                onProductPress();
+                widget.onProductPress();
               },
               child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                   child: Image.network(
-                    item.image,
+                    widget.item.image,
                     fit: BoxFit.fitHeight,
                     width: double.infinity,
                     height: 160,
@@ -39,25 +50,12 @@ class GridProductItem extends StatelessWidget {
             Positioned(
                 top: 5,
                 right: 5,
-                child: GestureDetector(
-                  onTap: () {
-                    onFavoritePress();
+                child: AnimatedHeart(
+                  isFavorite: widget.item.isFavorite,
+                  onPress: () {
+                    widget.onFavoritePress();
                   },
-                  child: Container(
-                    width: 36.0,
-                    height: 36.0,
-                    decoration: BoxDecoration(
-                        color: CustomColors.white,
-                        borderRadius: BorderRadius.circular(18.0)),
-                    //
-                    child: item.isFavorite
-                        ? const Icon(
-                            Icons.favorite,
-                            color: CustomColors.red,
-                          )
-                        : const Icon(Icons.favorite_border),
-                  ),
-                )),
+                ))
           ],
         ),
         Padding(
@@ -70,7 +68,7 @@ class GridProductItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TypographyCustom.medium(
-                      text: item.title,
+                      text: widget.item.title,
                       color: CustomColors.black,
                       fontSize: 16,
                       overflow: TextOverflow.ellipsis,
@@ -79,7 +77,7 @@ class GridProductItem extends StatelessWidget {
                       height: 5,
                     ),
                     TypographyCustom.medium(
-                      text: item.price.toString(),
+                      text: widget.item.price.toString(),
                       color: CustomColors.placeholder,
                       fontSize: 14,
                     ),
@@ -89,9 +87,9 @@ class GridProductItem extends StatelessWidget {
               InkWell(
                 customBorder: Border.all(color: CustomColors.black, width: 1),
                 onTap: () {
-                  onCartPress();
+                  widget.onCartPress();
                 },
-                child: item.inCart
+                child: widget.item.inCart
                     ? const Icon(
                         Icons.shopping_cart,
                         color: CustomColors.green,

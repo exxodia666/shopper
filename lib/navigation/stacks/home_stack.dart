@@ -9,9 +9,9 @@ import 'package:shopper/navigation/main_navigator.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
 import 'package:shopper/screens/Home/home.dart';
-import 'package:shopper/theme/colors.dart';
 import 'package:shopper/screens/category_products/category_products.dart';
 import 'package:shopper/screens/product_details/product_details.dart';
+import 'package:shopper/widgets/animated_heart/animated_heart.dart';
 
 final GlobalKey<NavigatorState> _homeShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'home_shell');
@@ -59,26 +59,18 @@ StatefulShellBranch homeBranch = StatefulShellBranch(
                       final filtered = blocState.getFilteredProductById(id);
                       final isFavorite =
                           filtered.isEmpty ? false : filtered[0].isFavorite;
-                      return InkWell(
-                          onTap: () {
-                            context.read<FavoriteBloc>().add(isFavorite
-                                ? RemoveFromFavorite(
-                                    userId: user.id, productId: id)
-                                : AddToFavorite(
-                                    userId: user.id, productId: id));
-                            context
-                                .read<ProductListBloc>()
-                                .add(ProductListFetch(userId: user.id));
-                          },
-                          child: isFavorite
-                              ? const Icon(
-                                  Icons.favorite,
-                                  color: CustomColors.red,
-                                )
-                              : const Icon(
-                                  Icons.favorite_border,
-                                  color: CustomColors.black,
-                                ));
+                      return AnimatedHeart(
+                        isFavorite: isFavorite,
+                        onPress: () {
+                          context.read<FavoriteBloc>().add(isFavorite
+                              ? RemoveFromFavorite(
+                                  userId: user.id, productId: id)
+                              : AddToFavorite(userId: user.id, productId: id));
+                          context
+                              .read<ProductListBloc>()
+                              .add(ProductListFetch(userId: user.id));
+                        },
+                      );
                     },
                   ),
                   const SizedBox(

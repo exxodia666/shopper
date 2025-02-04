@@ -10,14 +10,14 @@ import 'package:shopper/repository/favorite_repository.dart';
 import 'package:shopper/repository/order_repository.dart';
 import 'package:shopper/repository/product_repository.dart';
 
-import 'api/auth/authentication_firebase_api.dart';
 import './repository/authentication_repository.dart';
+import 'api/auth/authentication_firebase_api.dart';
 
 class SimpleBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    // print('$change');
+    print('$change');
   }
 }
 
