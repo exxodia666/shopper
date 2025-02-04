@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
 import 'package:shopper/bloc/product_list/product_list_bloc.dart';
@@ -84,8 +85,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                           color: item.inCart
                               ? CustomColors.red
                               : CustomColors.primary,
-                          title:
-                              item.inCart ? 'Remove from cart' : 'Add to cart',
+                          title: item.inCart
+                              ? AppLocalizations.of(context)!.removeCart
+                              : AppLocalizations.of(context)!.addCart,
                           textColor: CustomColors.white,
                           onPress: () {
                             var user = context.read<AppBloc>().state.user;

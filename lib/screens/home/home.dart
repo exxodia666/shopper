@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
@@ -93,7 +94,7 @@ class _HomeState extends State<Home> {
                   ),
                   Button(
                       color: CustomColors.primary,
-                      title: 'Open cart',
+                      title: AppLocalizations.of(context)!.addCart,
                       textColor: Colors.white,
                       onPress: () {
                         Navigator.pop(context);
@@ -109,7 +110,6 @@ class _HomeState extends State<Home> {
   }
 
   void onFavoritePress(Product item, userId) {
-    // Todo add animation on this
     context.read<FavoriteBloc>().add(!item.isFavorite
         ? AddToFavorite(productId: item.id, userId: userId)
         : RemoveFromFavorite(productId: item.id, userId: userId));

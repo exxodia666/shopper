@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "title": "Shopper",
+  "addCart": "Add to cart",
+  "removeCart": "Remove from cart",
+  "favorites": "Favorites",
+  "@cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "@items": {
+      "one": "1 item",
+      "other": "{{count}} items"
+    }
+  },
+  "@order": {
+    "orders": "Orders",
+    "status": "Status"
+  }
+}

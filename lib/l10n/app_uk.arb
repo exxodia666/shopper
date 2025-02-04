@@ -1,0 +1,23 @@
+{
+  "@@locale": "uk",
+  "title": "Shopper",
+  "addCart": "Додати в корзину",
+  "removeCart": "Вилучити з корзини",
+  "favorites": "Улюблене",
+  "@cart": {
+    "title": "Корзина",
+    "empty": "Ваша корзина пуста",
+    "total": "Всього",
+    "checkout": "Замовити",
+    "subtotal": "Підсумок",
+    "shipping": "Доставка",
+    "@items": {
+      "one": "1 предмет",
+      "other": "{{count}} предмети"
+    }
+  },
+  "@order": {
+    "orders": "Замовлення",
+    "status": "Статус"
+  }
+}

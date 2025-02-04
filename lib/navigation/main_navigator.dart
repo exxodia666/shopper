@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/cart/cart_bloc.dart';
@@ -103,7 +105,17 @@ class _MainNavigatorState extends State<MainNavigator> {
         ),
       ],
       child: MaterialApp.router(
-        title: 'Flutter Demo',
+        title: 'Shopper',
+        localizationsDelegates: const [
+          AppLocalizations.delegate, // Add this line
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'), // English
+          Locale('uk'), // Ukrainian
+        ],
         theme: ThemeData(),
         routerConfig:
             authStatus == AppStatus.unauthenticated ? _authRouter : _router,
