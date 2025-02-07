@@ -105,6 +105,7 @@ class _MainNavigatorState extends State<MainNavigator> {
         ),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'Shopper',
         localizationsDelegates: const [
           AppLocalizations.delegate, // Add this line
