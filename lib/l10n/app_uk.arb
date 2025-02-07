@@ -1,23 +1,41 @@
 {
   "@@locale": "uk",
   "title": "Shopper",
+
+
+
   "addCart": "Додати в корзину",
   "removeCart": "Вилучити з корзини",
   "favorites": "Улюблене",
-  "@cart": {
-    "title": "Корзина",
-    "empty": "Ваша корзина пуста",
-    "total": "Всього",
-    "checkout": "Замовити",
-    "subtotal": "Підсумок",
-    "shipping": "Доставка",
-    "@items": {
-      "one": "1 предмет",
-      "other": "{{count}} предмети"
-    }
-  },
-  "@order": {
-    "orders": "Замовлення",
-    "status": "Статус"
+
+  "cart_popup_title": "Хочете продовжити покупки?",
+  "cart_popup_continue": "Продовжити",
+  "cart_popup_go_to_cart": "Перейти до корзини",
+
+    "cart_title": "Корзина",
+    "cart_empty": "Ваша корзина пуста",
+    "cart_total": "Всього",
+    "cart_checkout": "Замовити",
+    "cart_subtotal": "Підсумок",
+    "cart_shipping": "Доставка",
+  "cart_items_one": "1 предмет",
+    "order_orders": "Замовлення",
+    "order_status": "Статус",
+
+  "profile_title": "Профіль",
+
+  "auth_sign_in_title": "Увійдіть в Shopper",
+  "auth_sign_in_or": "Або",
+  "auth_sign_in_no_acc": "Не маєте облікового запису? ",
+  "auth_sign_in_btn": "Увійти",
+
+  "auth_sign_up_title": "Зареєструватись в Shopper",
+  "auth_email": "Електронна пошта",
+  "auth_password": "Пароль",
+  "auth_confirmation": "Підтвердження",
+  "auth_sign_up_btn": "Зареєструватись",
+
+  "auth_email_error": "Некоректна електронна пошта",
+  "auth_password_error": "Некоректний пароль (8 символів і хоча б одна буква)",
+  "auth_confirmation_error": "Паролі не співпадають"
   }
-}

@@ -80,12 +80,12 @@ class _HomeState extends State<Home> {
                     alignment: AlignmentDirectional.center,
                     child: TypographyCustom.semiBold(
                         fontSize: 18,
-                        text: 'Would you like to continue shopping?'),
+                        text: AppLocalizations.of(context)!.cart_popup_title),
                   ),
                   const Divider(height: 15.0),
                   Button(
                     color: CustomColors.primary,
-                    title: 'Continue',
+                    title: AppLocalizations.of(context)!.cart_popup_continue,
                     textColor: Colors.white,
                     onPress: () => Navigator.pop(context),
                   ),
@@ -94,7 +94,8 @@ class _HomeState extends State<Home> {
                   ),
                   Button(
                       color: CustomColors.primary,
-                      title: AppLocalizations.of(context)!.addCart,
+                      title:
+                          AppLocalizations.of(context)!.cart_popup_go_to_cart,
                       textColor: Colors.white,
                       onPress: () {
                         Navigator.pop(context);

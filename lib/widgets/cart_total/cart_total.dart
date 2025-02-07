@@ -56,7 +56,8 @@ class CartTotal extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TypographyCustom.medium(
-                          text: 'Shipping', color: CustomColors.lightGrey),
+                          text: AppLocalizations.of(context)!.cart_shipping,
+                          color: CustomColors.lightGrey),
                       TypographyCustom.medium(
                           text: 'Rs. $shipping', color: CustomColors.lightGrey)
                     ],
@@ -71,7 +72,8 @@ class CartTotal extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TypographyCustom.medium(
-                          text: 'Total', color: CustomColors.black),
+                          text: AppLocalizations.of(context)!.cart_total,
+                          color: CustomColors.black),
                       Row(
                         children: [
                           TypographyCustom.medium(
@@ -93,7 +95,7 @@ class CartTotal extends StatelessWidget {
               ),
               Button(
                   color: CustomColors.primary,
-                  title: 'Checkout',
+                  title: AppLocalizations.of(context)!.cart_checkout,
                   textColor: CustomColors.white,
                   onPress: () {
                     onCheckout();

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:formz/formz.dart';
-import 'package:shopper/theme/colors.dart';
+import 'package:shopper/cubit/auth/cubit.dart';
 import 'package:shopper/navigation/routes.dart';
+import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
-import 'package:shopper/cubit/auth/cubit.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({super.key});
@@ -42,7 +43,7 @@ class SignInForm extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 44.0),
                 child: TypographyCustom.semiBold(
-                  text: 'Login to Shopper',
+                  text: AppLocalizations.of(context)!.auth_sign_in_title,
                   fontSize: 20.0,
                   color: CustomColors.black,
                 ),
@@ -85,7 +86,7 @@ class SignInForm extends StatelessWidget {
                   children: [
                     const Spacer(),
                     TypographyCustom.medium(
-                        text: 'Don’t have an account? ',
+                        text: AppLocalizations.of(context)!.auth_sign_in_no_acc,
                         fontSize: 14.0,
                         color: CustomColors.lightGrey),
                     InkWell(
@@ -93,7 +94,8 @@ class SignInForm extends StatelessWidget {
                           navigateTo(context, Routes.signUp);
                         },
                         child: TypographyCustom.medium(
-                            text: 'Sign Up',
+                            text:
+                                AppLocalizations.of(context)!.auth_sign_up_btn,
                             fontSize: 14.0,
                             color: CustomColors.primary)),
                     const Spacer(),
@@ -117,11 +119,13 @@ class _EmailInput extends StatelessWidget {
       builder: (context, state) {
         return TextInput(
           icon: const Icon(Icons.person),
-          placeholder: 'Email',
+          placeholder: AppLocalizations.of(context)!.auth_email,
           key: const Key('SignInForm_emailInput_textField'),
           onChanged: (email) => context.read<SignInCubit>().emailChanged(email),
           // keyboardType: TextInputType.emailAddress,
-          errorText: state.email.displayError != null ? 'invalid email' : null,
+          errorText: state.email.displayError != null
+              ? AppLocalizations.of(context)!.auth_email_error
+              : null,
         );
       },
     );
@@ -137,13 +141,14 @@ class _PasswordInput extends StatelessWidget {
         return TextInput(
           obscureText: true,
           icon: const Icon(Icons.lock),
-          placeholder: 'Password',
+          placeholder: AppLocalizations.of(context)!.auth_password,
           key: const Key('SignInForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<SignInCubit>().passwordChanged(password),
           // keyboardType: TextInputType.emailAddress,
-          errorText:
-              state.email.displayError != null ? 'invalid password' : null,
+          errorText: state.email.displayError != null
+              ? AppLocalizations.of(context)!.auth_password_error
+              : null,
         );
       },
     );
@@ -159,7 +164,7 @@ class _LoginButton extends StatelessWidget {
             ? const CircularProgressIndicator()
             : Button(
                 key: const Key('SignInForm_continue_raisedButton'),
-                title: 'Login',
+                title: AppLocalizations.of(context)!.auth_sign_in_btn,
                 color: CustomColors.primary,
                 textColor: CustomColors.white,
                 onPress: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/favorite/favorite_bloc.dart';
@@ -23,7 +24,7 @@ StatefulShellBranch orderBranch = StatefulShellBranch(
       pageBuilder: (context, state) => NoTransitionPage(
         child: CustomScaffold(
             header: CustomHeader(
-              title: 'Cart',
+              title: AppLocalizations.of(context)!.cart_title,
               backBtn: false,
             ),
             child: const Cart()),

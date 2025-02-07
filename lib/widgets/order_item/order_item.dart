@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopper/models/models.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/typography.dart';
@@ -41,7 +42,7 @@ class OrderListItem extends StatelessWidget {
                   Row(
                     children: [
                       TypographyCustom.medium(
-                        text: 'Status: ',
+                        text: '${AppLocalizations.of(context)!.order_status}: ',
                         color: CustomColors.placeholder,
                         fontSize: 18,
                       ),

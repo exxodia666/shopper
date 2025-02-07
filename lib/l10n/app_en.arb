@@ -3,21 +3,37 @@
   "title": "Shopper",
   "addCart": "Add to cart",
   "removeCart": "Remove from cart",
+
+  "cart_popup_title": "Would you like to continue shopping?",
+  "cart_popup_continue": "Continue",
+  "cart_popup_go_to_cart": "Go to cart",
+
+
   "favorites": "Favorites",
-  "@cart": {
-    "title": "Cart",
-    "empty": "Your cart is empty",
-    "total": "Total",
-    "checkout": "Checkout",
-    "subtotal": "Subtotal",
-    "shipping": "Shipping",
-    "@items": {
-      "one": "1 item",
-      "other": "{{count}} items"
-    }
-  },
-  "@order": {
-    "orders": "Orders",
-    "status": "Status"
-  }
+  "cart_title": "Cart",
+  "cart_empty": "Your cart is empty",
+  "cart_total": "Total",
+  "cart_checkout": "Checkout",
+  "cart_subtotal": "Subtotal",
+  "cart_shipping": "Shipping",
+  "cart_items_one": "1 item",
+  "order_orders": "Orders",
+  "order_status": "Status",
+
+  "profile_title": "Profile",
+
+  "auth_sign_in_title": "Login to Shopper",
+  "auth_sign_in_or": "Or",
+  "auth_sign_in_no_acc": "Don’t have an account? ",
+  "auth_sign_in_btn": "Login",
+
+  "auth_sign_up_title": "Sign up into Shopper",
+  "auth_email": "Email",
+  "auth_password": "Password",
+  "auth_confirmation": "Confirmation",
+  "auth_sign_up_btn": "Sign up",
+
+  "auth_email_error": "Invalid email",
+  "auth_password_error": "Invalid password (8 symbols and at least one letter)",
+  "auth_confirmation_error": "Passwords do not match"
 }

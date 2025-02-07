@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/favorite/favorite_bloc.dart';
@@ -23,7 +24,7 @@ StatefulShellBranch favoriteBranch = StatefulShellBranch(
       pageBuilder: (context, state) => NoTransitionPage(
           child: CustomScaffold(
         header: CustomHeader(
-          title: 'Favorites',
+          title: AppLocalizations.of(context)!.favorites,
           backBtn: false,
         ),
         child: const Favorites(),

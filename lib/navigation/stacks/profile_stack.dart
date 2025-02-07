@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/navigation/header.dart';
 import 'package:shopper/navigation/routes.dart';
 import 'package:shopper/navigation/scaffold.dart';
-import 'package:shopper/theme/colors.dart';
 import 'package:shopper/screens/profile_page/profile_page.dart';
+import 'package:shopper/theme/colors.dart';
 
 final GlobalKey<NavigatorState> _profileShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'profile_shell');
@@ -19,7 +20,7 @@ StatefulShellBranch profileBranch = StatefulShellBranch(
       pageBuilder: (context, state) => NoTransitionPage(
         child: CustomScaffold(
             header: CustomHeader(
-              title: 'Profile',
+              title: AppLocalizations.of(context)!.profile_title,
               backBtn: false,
               actions: [
                 Padding(

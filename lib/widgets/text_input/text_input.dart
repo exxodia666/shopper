@@ -28,7 +28,7 @@ class _TextInputState extends State<TextInput> {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(bottom: 24.0),
+          margin: const EdgeInsets.only(bottom: 10.0),
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
@@ -60,7 +60,12 @@ class _TextInputState extends State<TextInput> {
             ],
           ),
         ),
-        TypographyCustom.regular(text: widget.errorText ?? ''),
+        Container(
+          margin: const EdgeInsets.only(bottom: 14.0),
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: TypographyCustom.regular(
+              text: widget.errorText ?? '', color: CustomColors.red),
+        ),
       ],
     );
   }

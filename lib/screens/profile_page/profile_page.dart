@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopper/app/bloc/app_bloc.dart';
 import 'package:shopper/bloc/order/order_bloc.dart';
@@ -64,7 +65,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: TypographyCustom.regular(
-                        text: 'Orders:', fontSize: 20)),
+                        text: "${AppLocalizations.of(context)!.order_orders}:",
+                        fontSize: 20)),
               const SizedBox(height: 8),
               Expanded(
                 child: SizedBox(

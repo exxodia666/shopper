@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:formz/formz.dart';
+import 'package:shopper/cubit/auth/sign_up/sign_up_cubit.dart';
 import 'package:shopper/theme/colors.dart';
 import 'package:shopper/theme/typography.dart';
 import 'package:shopper/widgets/widgets.dart';
-import 'package:shopper/cubit/auth/sign_up/sign_up_cubit.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
@@ -50,7 +51,7 @@ class SignUpForm extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 44.0),
                 child: TypographyCustom.semiBold(
-                    text: 'Sign in Shopper',
+                    text: AppLocalizations.of(context)!.auth_sign_up_title,
                     fontSize: 20.0,
                     color: CustomColors.black),
               ),
@@ -75,11 +76,13 @@ class _EmailInput extends StatelessWidget {
       builder: (context, state) {
         return TextInput(
           icon: const Icon(Icons.person),
-          placeholder: 'Email',
+          placeholder: AppLocalizations.of(context)!.auth_email,
           key: const Key('signUpForm_emailInput_textField'),
           onChanged: (email) => context.read<SignUpCubit>().emailChanged(email),
           // keyboardType: TextInputType.emailAddress,
-          errorText: state.email.displayError != null ? 'invalid email' : null,
+          errorText: state.email.displayError != null
+              ? AppLocalizations.of(context)!.auth_email_error
+              : null,
         );
       },
     );
@@ -94,13 +97,14 @@ class _PasswordInput extends StatelessWidget {
       builder: (context, state) {
         return TextInput(
           icon: const Icon(Icons.lock),
-          placeholder: 'Password',
+          placeholder: AppLocalizations.of(context)!.auth_password,
           key: const Key('signUpForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<SignUpCubit>().passwordChanged(password),
           obscureText: true,
-          errorText:
-              state.password.displayError != null ? 'invalid password' : null,
+          errorText: state.password.displayError != null
+              ? AppLocalizations.of(context)!.auth_password_error
+              : null,
         );
       },
     );
@@ -117,14 +121,14 @@ class _ConfirmPasswordInput extends StatelessWidget {
       builder: (context, state) {
         return TextInput(
           icon: const Icon(Icons.lock),
-          placeholder: 'Confirmation',
+          placeholder: AppLocalizations.of(context)!.auth_confirmation,
           key: const Key('signUpForm_confirmedPasswordInput_textField'),
           onChanged: (confirmPassword) => context
               .read<SignUpCubit>()
               .confirmedPasswordChanged(confirmPassword),
           obscureText: true,
           errorText: state.confirmedPassword.displayError != null
-              ? 'passwords do not match'
+              ? AppLocalizations.of(context)!.auth_confirmation_error
               : null,
         );
       },
@@ -140,7 +144,7 @@ class _SignUpButton extends StatelessWidget {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
             : Button(
-                title: 'Sign Up',
+                title: AppLocalizations.of(context)!.auth_sign_up_btn,
                 color: CustomColors.primary,
                 textColor: CustomColors.white,
                 onPress: () {
